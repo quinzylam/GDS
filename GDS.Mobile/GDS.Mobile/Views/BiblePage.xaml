@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GDS.Mobile.Views.BiblePage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Label x:Name="lblStatus" Text="{Binding StatusMsg}"  FontSize="Caption" IsVisible="{Binding HasStatus}" />
+            <Label x:Name="lblError" Text="{Binding ErrorMsg}" FontSize="Caption" TextColor="Red" IsVisible="{Binding HasError}" />
+            <StackLayout>
+                <ListView x:Name="ListViewChapter" ItemsSource="{Binding Chapter}" IsPullToRefreshEnabled="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10">
+                                    <Label Text="{Binding Text}" d:Text="{Binding .}" FontSize="20" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand">
+                <Button Text="Prev" Command="{Binding PrevCommand}"  FontAttributes="Bold" HorizontalOptions="FillAndExpand" />
+                <Button Text="Next" Command="{Binding NextCommand}"  FontAttributes="Bold" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
