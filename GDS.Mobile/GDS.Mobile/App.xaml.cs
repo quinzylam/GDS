@@ -1,11 +1,9 @@
-﻿using System;
-using Xamarin.Essentials;
+﻿using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using GDS.Mobile.Services;
 using GDS.Mobile.Views;
-using GDS.Data.Mobile.DataStore;
-using GDS.Core.Data;
+using GDS.Core.Data.Database;
+using GDS.Core.Services;
+using GDS.Core.Mobile.Services;
 
 namespace GDS.Mobile
 {
@@ -18,19 +16,12 @@ namespace GDS.Mobile
             DeviceInfo.Platform == DevicePlatform.Android ? Constants.API_URL_DROID : Constants.API_URL;
 
         public static bool UseMockDataStore = true;
+
         public static bool IsUserLoggedIn { get; set; }
-        public static bool IsOffline { get; set; }
 
         public App()
         {
             InitializeComponent();
-
-            if (UseMockDataStore)
-                DependencyService.Register<MockDataStore>();
-            else if (IsOffline)
-                DependencyService.Register<LocalDataStore>();
-            else
-                DependencyService.Register<AzureDataStore>();
 
             MainPage = IsUserLoggedIn ? new NavigationPage(new MainPage()) : new NavigationPage(new LoginPage());
         }

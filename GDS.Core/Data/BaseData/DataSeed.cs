@@ -1,17 +1,26 @@
-﻿using GDS.Core.Models.System;
+﻿using GDS.Core.Models.Bibles;
+using GDS.Core.Models.System;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GDS.Core.Data.BaseData
 {
-    public class DataSeed
+    public static class DataSeed
     {
-        public void SeedUser()
+        public static List<User> SeedUser()
         {
-            var users = new List<User>()
+            return new List<User>()
             {
                 new User { Id = 1, Gid = Guid.NewGuid().ToString(), Username = "Admin", Password = "GgjIhLN2YhnVvyr///sCFRdKixLHWFwho8o+qNMahzN8FFJS", Email = "admin@wirelessminsisteringevents.co.za"}
+            };
+        }
+
+        public static List<Translation> SeedTranslation()
+        {
+            return new List<Translation>()
+            {
+                new Translation{ Id =1, Title="King James Version", Code="KJV", HasStrongs = true}
             };
         }
     }

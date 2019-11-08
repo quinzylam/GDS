@@ -7,54 +7,38 @@ using System.Threading.Tasks;
 
 namespace GDS.Core.Data.DataStore
 {
-    public class MockDataStore<T> : IDataStore<T> where T : BaseModel
+    public class MockDataStore<T> : MockDataReader<T>, IDataStore<T> where T : BaseModel
     {
-        private readonly List<T> items;
+        private readonly List<T> _items;
         private int localId = 0;
 
-        public MockDataStore()
+        public MockDataStore(List<T> items) : base(items)
         {
-            items = new List<T>();
+            _items = items;
         }
 
-        public async Task<bool> CreateAsync(T model)
+        public async Task<bool> AddAsync(T model)
         {
             model.Id = localId++;
-            model.Gid = Guid.NewGuid().ToString();
             model.CreatedOn = DateTime.UtcNow;
-            items.Add(model);
+            _items.Add(model);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteAsync(string id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            var oldItem = items.Where(arg => arg.Gid == id).FirstOrDefault();
-            items.Remove(oldItem);
+            var oldItem = _items.Where(arg => arg.Id == id).FirstOrDefault();
+            _items.Remove(oldItem);
 
             return await Task.FromResult(true);
-        }
-
-        public async Task<T> GetAsync(string id)
-        {
-            return await Task.FromResult(items.FirstOrDefault(x => x.Gid == id));
-        }
-
-        public async Task<IQueryable<T>> GetAsync(bool forceRefresh = false)
-        {
-            return await Task.FromResult(items.AsQueryable());
-        }
-
-        public async Task<T> GetAsync(int id)
-        {
-            return await Task.FromResult(items.FirstOrDefault(x => x.Id == id));
         }
 
         public async Task<bool> UpdateAsync(T model)
         {
-            var oldItem = items.Where(arg => arg.Id == model.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(model);
+            var oldItem = _items.Where(arg => arg.Id == model.Id).FirstOrDefault();
+            _items.Remove(oldItem);
+            _items.Add(model);
 
             return await Task.FromResult(true);
         }

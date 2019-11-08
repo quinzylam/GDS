@@ -10,7 +10,7 @@ namespace GDS.Core.Data
 {
     public interface IDataStore<T> : IDataReader<T> where T : BaseModel
     {
-        Task<bool> CreateAsync(T model);
+        Task<bool> AddAsync(T model);
 
         Task<bool> DeleteAsync(int id);
 

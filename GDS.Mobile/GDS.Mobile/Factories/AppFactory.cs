@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using Autofac.Core;
-using GDS.Core.Data;
-using GDS.Data.Mobile.DataStore;
-using GDS.Mobile.Services;
+using GDS.Core.Data.Database;
+using GDS.Core.Mobile.Services;
+using GDS.Core.Services;
+using GDS.Data.Mobile.Contexts;
 using GDS.Mobile.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,13 @@ namespace GDS.Mobile.Factories
         {
             DependencyResolver.ResolveUsing(type => _container.IsRegistered(type) ? _container.Resolve(type) : null);
 
+            RegisterSingleton<GDSContext>();
+
             //Data
             if (App.UseMockDataStore)
-                RegisterSingleton<IDataStore, MockDataStore>();
+                RegisterSingleton<IDataService, MockDataService>();
             else
-                RegisterSingleton<IDataStore, LocalDataStore>();
+                RegisterSingleton<IDataService, DataService>();
 
             //ViewModels
             RegisterType<LoginViewModel>();
@@ -49,6 +52,11 @@ namespace GDS.Mobile.Factories
         public static void RegisterSingleton<TInterface, T>() where TInterface : class where T : class, TInterface
         {
             builder.RegisterType<T>().As<TInterface>().SingleInstance();
+        }
+
+        public static void RegisterSingleton<T>() where T : class
+        {
+            builder.RegisterType<T>().SingleInstance();
         }
 
         public static T GetInstance<T>() where T : class

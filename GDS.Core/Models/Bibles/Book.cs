@@ -5,10 +5,8 @@ using System.Text;
 
 namespace GDS.Core.Models.Bibles
 {
-    public class Book
+    public class Book : BaseReaderModel
     {
-        public int Id { get; set; }
-
         public int TranslationId { get; set; }
 
         public string Title { get; set; }
