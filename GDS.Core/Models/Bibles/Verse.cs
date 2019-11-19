@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GDS.Core.Models.Bibles
 {
-    public class Verse : BaseReaderModel
+    public class Verse : BaseReader
     {
         public int BookId { get; set; }
 

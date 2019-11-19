@@ -7,12 +7,13 @@ using GDS.Core.Data;
 using GDS.Mobile.Factories;
 using GDS.Mobile.Views;
 using GDS.Mobile.Commands;
+using GDS.Core.Services;
+using GDS.Resources;
 
 namespace GDS.Mobile.ViewModels
 {
     public class BaseViewModel : BaseModel
     {
-        public IDataStore DataStore { get => AppFactory.GetInstance<IDataStore>(); }
         private string errorMsg = string.Empty;
         private bool isBusy = false;
         private bool hasError = false;
@@ -31,7 +32,7 @@ namespace GDS.Mobile.ViewModels
         {
             if (e.PropertyName == nameof(IsSynchronizing))
                 if (IsSynchronizing)
-                    Start(Constants.IS_SYNC_STATUS);
+                    Start(GDSResource.BusyStatus);
                 else
                     Stop();
             if (e.PropertyName == nameof(StatusMsg))
@@ -65,14 +66,14 @@ namespace GDS.Mobile.ViewModels
         {
             originalStatus = StatusMsg;
             ErrorMsg = string.Empty;
-            StatusMsg = status ?? Constants.IS_BUSY_STATUS;
+            StatusMsg = status ?? GDSResource.BusyStatus;
             IsBusy = true;
         }
 
         private void Stop()
         {
             IsBusy = false;
-            StatusMsg = (originalStatus == Constants.IS_BUSY_STATUS || originalStatus == Constants.IS_SYNC_STATUS) ? string.Empty : originalStatus;
+            StatusMsg = (originalStatus == GDSResource.BusyStatus || originalStatus == GDSResource.SyncStatus) ? string.Empty : originalStatus;
         }
 
         public bool IsSynchronizing { get => isSynchronizing; set => SetProperty(ref isSynchronizing, value); }
@@ -121,7 +122,7 @@ namespace GDS.Mobile.ViewModels
 
         internal bool HandleError(string message, Exception ex = null)
         {
-            ErrorMsg = string.Concat(message, " ", ex?.Message);
+            ErrorMsg = string.Concat(message, " ", ex?.Message).Trim();
             //if (ex != null)
             //    Logger.Error(message, ex);
             return false;

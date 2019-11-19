@@ -14,15 +14,26 @@ namespace GDS.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        private readonly LoginViewModel _viewModel;
+        private LoginViewModel _viewModel;
 
         public LoginPage()
         {
-            _viewModel = AppFactory.GetInstance<LoginViewModel>();
-            _viewModel.IsBusy = true;
             InitializeComponent();
+            InitializeViewModel();
+        }
+
+        public void InitializeViewModel()
+        {
+            _viewModel = AppFactory.GetInstance<LoginViewModel>();
+            _viewModel.OnLogin += ViewModel_OnLogin;
+
             BindingContext = _viewModel;
-            _viewModel.IsBusy = false;
+        }
+
+        private void ViewModel_OnLogin(object sender, EventArgs e)
+        {
+            App.IsUserLoggedIn = true;
+            Application.Current.MainPage = new NavigationPage(new MainPage());
         }
     }
 }

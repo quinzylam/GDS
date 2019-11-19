@@ -26,25 +26,31 @@ namespace GDS.Mobile.Commands
 
         public AsyncCommand(
             Func<object, Task> execute,
-            Func<object, bool> canExecute = null, TaskWatcher watcher = null)
+             TaskWatcher watcher = null,
+            Func<object, bool> canExecute = null)
         {
             _execute = execute;
             _canExecute = canExecute;
             _watcher = watcher ?? new TaskWatcher();
         }
 
-        public bool CanExecute(object parameter)
+        public AsyncCommand(Func<Task> execute, TaskWatcher watcher = null, Func<bool> canExecute = null)
+        {
+            _execute = x => execute();
+            if (canExecute != null)
+                _canExecute = x => canExecute();
+            _watcher = watcher ?? new TaskWatcher();
+        }
+
+        public bool CanExecute(object parameter = null)
         {
             return !_watcher.IsNotCompleted && (_canExecute?.Invoke(parameter) ?? true);
         }
 
-        public async Task ExecuteAsync(object parameter)
+        public async Task ExecuteAsync(object parameter = null)
         {
-            if (CanExecute(parameter))
-            {
-                PreExecution?.Invoke(this, new ExecuteTaskEventArgs { IsExecuting = true });
-                await _execute(parameter);
-            }
+            PreExecution?.Invoke(this, new ExecuteTaskEventArgs { IsExecuting = true });
+            await _execute(parameter);
             RaiseCanExecuteChanged();
         }
 

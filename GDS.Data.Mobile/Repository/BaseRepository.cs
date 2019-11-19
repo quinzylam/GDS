@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GDS.Data.Mobile.Repository
 {
-    public class BaseRepository<T> where T : BaseModel
+    public class BaseRepository<T> where T : BaseReader
     {
         protected readonly GDSContext context;
         private DbSet<T> entities;

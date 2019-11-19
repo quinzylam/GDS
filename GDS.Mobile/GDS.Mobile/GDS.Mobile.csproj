@@ -15,6 +15,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\GDS.Core.Mobile\GDS.Core.Mobile.csproj" />
     <ProjectReference Include="..\..\GDS.Data.Mobile\GDS.Data.Mobile.csproj" />
+    <ProjectReference Include="..\..\GDS.MockFactory\GDS.MockFactory.csproj" />
+    <ProjectReference Include="..\..\GDS.Resources\GDS.Resources.csproj" />
   </ItemGroup>
 
   <ItemGroup>

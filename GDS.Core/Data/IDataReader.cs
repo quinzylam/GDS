@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace GDS.Core.Data
 {
-    public interface IDataReader<T> where T : BaseReaderModel
+    public interface IDataReader<T> where T : IReaderModel
     {
-        Task<IQueryable<T>> GetAsync(bool forceRefresh = false);
+        IQueryable<T> Get();
 
-        Task<T> GetAsync(int id);
+        T Get(int id);
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Xamarin.Essentials;
 using Xamarin.Forms;
 using GDS.Mobile.Views;
-using GDS.Core.Data.Database;
-using GDS.Core.Services;
-using GDS.Core.Mobile.Services;
 
 namespace GDS.Mobile
 {

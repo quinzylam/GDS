@@ -1,10 +1,11 @@
 ﻿using Autofac;
 using Autofac.Core;
-using GDS.Core.Data.Database;
 using GDS.Core.Mobile.Services;
+using GDS.Core.Models.Administration;
 using GDS.Core.Services;
 using GDS.Data.Mobile.Contexts;
 using GDS.Mobile.ViewModels;
+using GDS.MockFactory.Data.Database;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms.Internals;
@@ -20,13 +21,15 @@ namespace GDS.Mobile.Factories
         {
             DependencyResolver.ResolveUsing(type => _container.IsRegistered(type) ? _container.Resolve(type) : null);
 
-            RegisterSingleton<GDSContext>();
-
             //Data
+            RegisterSingleton<GDSContext>();
             if (App.UseMockDataStore)
                 RegisterSingleton<IDataService, MockDataService>();
             else
                 RegisterSingleton<IDataService, DataService>();
+
+            //Security
+            RegisterSingleton<ISecurityService<User>, SecurityService>();
 
             //ViewModels
             RegisterType<LoginViewModel>();

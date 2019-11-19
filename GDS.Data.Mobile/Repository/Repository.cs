@@ -1,6 +1,7 @@
 ﻿using GDS.Core.Data;
 using GDS.Core.Models;
 using GDS.Data.Mobile.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,26 +18,54 @@ namespace GDS.Data.Mobile.Repository
 
         public async Task<bool> AddAsync(T model)
         {
-            model.CreatedOn = DateTime.UtcNow;
-            Entities.Add(model);
-            var rows = await context.SaveChangesAsync();
-            return rows > 0;
+            if (await Entities.AnyAsync(x => x.Name != model.Name))
+            {
+                model.CreatedOn = DateTime.UtcNow;
+                return Entities.Add(model).State == EntityState.Added;
+            }
+            return false;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
             var dbobj = await Entities.FindAsync(id);
-            var result = dbobj != null;
-            Entities.Remove(dbobj);
-            return result;
+            if (dbobj == null)
+                return false;
+
+            return Entities.Remove(dbobj).State == EntityState.Deleted;
+        }
+
+        public async Task<IEnumerable<T>> GetAsync()
+        {
+            return await Entities.ToListAsync();
+        }
+
+        public async Task<T> GetAsync(int id)
+        {
+            return await Entities.FindAsync(id);
+        }
+
+        public async Task<int> SaveAsync(T model = null)
+        {
+            if (model != null)
+            {
+                if (model.Id == 0)
+                    await AddAsync(model);
+                else
+                    await UpdateAsync(model);
+            }
+
+            return await context.SaveChangesAsync();
         }
 
         public async Task<bool> UpdateAsync(T model)
         {
+            var dbobj = await context.FindAsync<T>(model.Id);
+            if (dbobj == null || dbobj.Equals(model))
+                return false;
+
             model.ModifiedOn = DateTime.UtcNow;
-            context.Update(model);
-            var rows = await context.SaveChangesAsync();
-            return rows > 0;
+            return context.Update(model).State == EntityState.Modified;
         }
     }
 }

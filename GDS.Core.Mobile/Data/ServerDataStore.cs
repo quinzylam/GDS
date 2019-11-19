@@ -11,39 +11,32 @@ using Xamarin.Essentials;
 
 namespace GDS.Core.Mobile.Services
 {
-    public class ServerDataStore<T> : IServerDataStore<T> where T : BaseServerModel
+    public class ServerDataStore<T> : IServerDataStore<T> where T : IServerModel
     {
         private readonly HttpClient client;
-        private readonly IDataStore<T> _local;
         private IEnumerable<T> items;
         private string TypeName => typeof(T).Name;
 
-        public ServerDataStore(IDataStore<T> local)
+        public ServerDataStore()
         {
             client = new HttpClient
             {
                 BaseAddress = new Uri($"{Global.AzureBackendUrl}/")
             };
-            _local = local;
 
             items = new List<T>();
         }
 
         private bool IsConnected => Connectivity.NetworkAccess == NetworkAccess.Internet;
 
-        public async Task<IQueryable<T>> GetAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<T>> GetAsync(bool forceRefresh = false)
         {
             if (forceRefresh && IsConnected)
             {
                 var json = await client.GetStringAsync($"api/{TypeName}");
                 items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<T>>(json));
             }
-            else
-            {
-                return await _local.GetAsync();
-            }
-
-            return items.AsQueryable();
+            return items;
         }
 
         public async Task<T> GetAsync(string id)
@@ -54,16 +47,13 @@ namespace GDS.Core.Mobile.Services
                 return await Task.Run(() => JsonConvert.DeserializeObject<T>(json));
             }
 
-            return null;
+            return default;
         }
 
         public async Task<bool> AddAsync(T item)
         {
-            if (item == null)
+            if (item == null || !IsConnected)
                 return false;
-            var result = await _local.AddAsync(item);
-            if (!IsConnected)
-                return result;
 
             var serializedItem = JsonConvert.SerializeObject(item);
 
@@ -74,11 +64,8 @@ namespace GDS.Core.Mobile.Services
 
         public async Task<bool> UpdateAsync(T item)
         {
-            if (item == null)
+            if (item == null || item?.Gid == null || !IsConnected)
                 return false;
-            var result = await _local.UpdateAsync(item);
-            if (item.Gid == null || !IsConnected)
-                return result;
 
             var serializedItem = JsonConvert.SerializeObject(item);
             var buffer = Encoding.UTF8.GetBytes(serializedItem);
@@ -99,21 +86,25 @@ namespace GDS.Core.Mobile.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public IQueryable<T> Get()
         {
-            if (id == 0)
-                return false;
-            return await _local.DeleteAsync(id);
+            if (IsConnected)
+            {
+                var json = Task.Run(async () => await client.GetStringAsync($"api/{TypeName}")).Result;
+                items = JsonConvert.DeserializeObject<IEnumerable<T>>(json);
+            }
+            return items.AsQueryable();
         }
 
-        public async Task<T> GetAsync(int id)
+        public T Get(int id)
         {
-            if (id != 0)
+            if (id != 0 && IsConnected)
             {
-                return await _local.GetAsync(id);
+                var json = Task.Run(async () => await client.GetStringAsync($"api/{TypeName}/{id}")).Result;
+                return JsonConvert.DeserializeObject<T>(json);
             }
 
-            return null;
+            return default;
         }
     }
 }

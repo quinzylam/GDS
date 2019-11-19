@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GDS.Core.Services;
+using GDS.Mobile.Factories;
+using System;
 using System.Windows.Input;
 
 using Xamarin.Forms;
@@ -11,7 +13,7 @@ namespace GDS.Mobile.ViewModels
         {
             Title = "About";
 
-            OpenWebCommand = new Command(() => Device.OpenUri(new Uri("https://wirelessministeringevents.co.za")));
+            OpenWebCommand = new Command(() => Device.OpenUri(new Uri(Constants.WEBSITE_URL)));
         }
 
         public ICommand OpenWebCommand { get; }

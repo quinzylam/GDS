@@ -8,11 +8,9 @@ namespace GDS.Mobile.ViewModels
     {
         private ObservableCollection<Verse> chapter;
         private Book book;
-        private IBibleStore _bibleStore;
 
-        public BibleViewModel(IBibleStore bibleStore)
+        public BibleViewModel()
         {
-            _bibleStore = bibleStore;
         }
 
         public Book Book { get => book; set => SetProperty(ref book, value); }

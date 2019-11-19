@@ -26,7 +26,7 @@ namespace GDS.Mobile.Views
         {
             _viewModel = AppFactory.GetInstance<BibleViewModel>();
 
-            Title = string.Concat(_viewModel.Book?.LongName, " ", _viewModel.Chapter?.Min(x => x.Chapter));
+            Title = string.Concat(_viewModel.Book?.Title, " ", _viewModel.Chapter?.Min(x => x.Chapter));
             BindingContext = _viewModel;
         }
     }

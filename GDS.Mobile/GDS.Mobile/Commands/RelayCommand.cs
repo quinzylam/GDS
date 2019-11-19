@@ -21,6 +21,16 @@ namespace GDS.Mobile.Commands
             _canExecute = canExecute;
         }
 
+        public RelayCommand(
+            Action execute,
+            Func<bool> canExecute = null
+            )
+        {
+            _execute = x => execute();
+            if (canExecute != null)
+                _canExecute = x => canExecute();
+        }
+
         public void RaiseCanExecuteChanged()
         {
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);

@@ -1,10 +1,15 @@
 ﻿using GDS.Core.Infrastructure.Utils;
-using GDS.Core.Models.System;
 using GDS.Mobile.Commands;
 using GDS.Mobile.Views;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.Linq;
+using GDS.Resources;
+using GDS.Core.Models.Administration;
+using GDS.Core.Services;
+using System;
+using System.Security.Authentication;
 
 namespace GDS.Mobile.ViewModels
 {
@@ -12,12 +17,14 @@ namespace GDS.Mobile.ViewModels
     {
         private string username;
         private string password;
-        private User user;
+        private readonly ISecurityService<User> _securityService;
 
-        public LoginViewModel()
+        public LoginViewModel(ISecurityService<User> securityService)
         {
-            GetUserCommand = new AsyncCommand(GetUser, CanGetUser, Watcher);
-            LoginCommand = new Command(Login, CanLogin);
+            Title = GDSResource.LoginTitle;
+            _securityService = securityService;
+            GetUserCommand = new AsyncCommand(GetUser, Watcher, CanGetUser);
+            LoginCommand = new AsyncCommand(Login, Watcher, CanLogin);
             RefreshCommand = new Command(Refresh);
         }
 
@@ -28,45 +35,42 @@ namespace GDS.Mobile.ViewModels
 
         public string Username { get => username; set => SetProperty(ref username, value); }
         public string Password { get => password; set => SetProperty(ref password, value); }
+
         public IAsyncCommand GetUserCommand { get; private set; }
-        public ICommand LoginCommand { get; private set; }
+        public IAsyncCommand LoginCommand { get; private set; }
         public ICommand RefreshCommand { get; private set; }
 
-        public User User { get => user; set => SetProperty(ref user, value); }
+        public delegate void OnLoginEventHandler(object sender, EventArgs e);
 
-        public bool CanGetUser(object arg)
+        public event OnLoginEventHandler OnLogin;
+
+        public bool CanGetUser()
         {
             if (IsBusy) return false;
 
-            if (string.IsNullOrEmpty(Username)) return HandleError("Username cannot be empty.");
+            if (string.IsNullOrEmpty(Username)) return HandleError(string.Concat(nameof(Username), GDSResource.EmptyError));
 
             return true;
         }
 
-        public bool CanLogin(object arg)
+        public bool CanLogin()
         {
             if (IsBusy) return false;
 
-            if (string.IsNullOrEmpty(Password)) return HandleError("Password cannot be empty.");
+            if (string.IsNullOrEmpty(Password)) return HandleError(string.Concat(nameof(Password), GDSResource.EmptyError));
 
-            if (User == null)
-                return HandleError("User does not exist");
-
-            if (!new PasswordProvider().IsValid(Password, User.Password))
-                return HandleError("Password is invalid");
+            if (_securityService.User == null)
+                return HandleError(string.Concat(nameof(User), GDSResource.ExistError));
 
             return true;
         }
 
-        public async Task GetUser(object arg)
-        {
-            User = await DataStore.GetUserAsync(Username);
-        }
+        public async Task GetUser() => await _securityService.GetUserAsync(Username);
 
-        public static void Login(object arg)
+        public async Task Login()
         {
-            App.IsUserLoggedIn = true;
-            Application.Current.MainPage = new NavigationPage(new MainPage());
+            if (await _securityService.LoginAsync(Password))
+                OnLogin?.Invoke(this, new EventArgs());
         }
     }
 }

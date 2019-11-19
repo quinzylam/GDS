@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 
 namespace GDS.Data.Mobile.Repository
 {
-    public class RepoReader<T> : BaseRepository<T>, IDataReader<T> where T : BaseModel
+    public class RepoReader<T> : BaseRepository<T>, IDataReader<T> where T : BaseReader
     {
         public RepoReader(GDSContext context) : base(context)
         {
         }
 
-        public async Task<IQueryable<T>> GetAsync(bool forceRefresh = false)
+        public IQueryable<T> Get()
         {
-            return await Task.FromResult(Entities.AsQueryable());
+            return Entities.AsQueryable();
         }
 
-        public async Task<T> GetAsync(int id)
+        public T Get(int id)
         {
-            return await Entities.FindAsync(id);
+            return Entities.Find(id);
         }
     }
 }

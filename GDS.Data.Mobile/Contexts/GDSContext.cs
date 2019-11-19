@@ -8,7 +8,7 @@ namespace GDS.Data.Mobile.Contexts
 {
     public class GDSContext : DbContext
     {
-        public new DbSet<TEntity> Set<TEntity>() where TEntity : BaseModel
+        public new DbSet<TEntity> Set<TEntity>() where TEntity : BaseReader
         {
             return base.Set<TEntity>();
         }
