@@ -1,0 +1,60 @@
+﻿@model GDS.Bible.ViewModels.BibleViewModel
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+    <h1>
+        <a asp-controler="Translations" asp-action="Reset">@Model.Translation.Code</a>
+    </h1>
+<
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th/>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.ShortTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Section)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Colour)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Books.OrderBy(x => x.BookNo)) {
+        <tr>
+            @{ var color = item.Colour;}
+            <td>
+                <a asp-action="Select" asp-route-id="@item.Id">Select</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Section)
+            </td>
+            <td style="color: @color">
+                @Html.DisplayFor(modelItem => item.Colour)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
