@@ -4,8 +4,12 @@ using System.Text;
 
 namespace GDS.Core.Models
 {
-    public class BaseModel
+    public abstract class BaseModel : ReadModel
     {
-        public int Id { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+        public string CreatedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[Book] (
-    [Id]         INT            IDENTITY (1, 1) NOT NULL,
-    [Title]      NVARCHAR (MAX) NULL,
-    [ShortTitle] NVARCHAR (MAX) NULL,
+    [Id]         UNIQUEIDENTIFIER   NOT NULL,
+    [Title]      NVARCHAR (30) NULL,
+    [ShortTitle] NVARCHAR (15) NULL,
     [Section]    INT            NOT NULL,
-    [Colour]     NVARCHAR (MAX) NULL,
+    [Colour]     NVARCHAR (15) NULL,
     [BookNo]     INT            DEFAULT ((0)) NOT NULL,
     CONSTRAINT [PK_Book] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
