@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Chapter] (
     [Id]            INT IDENTITY (1, 1) NOT NULL,
     [TranslationId] INT NOT NULL,
-    [BookId]        INT NOT NULL,
+    [BookId]        UNIQUEIDENTIFIER NOT NULL,
     [ChapterNo]     INT NOT NULL,
     CONSTRAINT [PK_Chapter] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Chapter_Book_BookId] FOREIGN KEY ([BookId]) REFERENCES [dbo].[Book] ([Id]) ON DELETE CASCADE,

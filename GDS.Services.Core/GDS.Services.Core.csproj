@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\GDS.Bible\GDS.Bible.Core\GDS.Bible.Core.csproj" />
+    <ProjectReference Include="..\..\GDS.Bible\GDS.Bible.Core\GDS.Bibles.Core.csproj" />
     <ProjectReference Include="..\..\GDS.Bible\GDS.Bible.Data\GDS.Data.csproj" />
     <ProjectReference Include="..\GDS.Core\GDS.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

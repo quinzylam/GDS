@@ -70,7 +70,7 @@ namespace GDS.Core.Models.Enums
         [Description("Ecclesiastes")]
         Ecclesiastes = 210,
 
-        [Description("Songs of Solomon")]
+        [Description("Song of Solomon")]
         Songs = 220,
 
         [Description("Isaiah")]
