@@ -9,5 +9,7 @@ namespace GDS.Core.Models
     {
         [Key]
         public Guid Id { get; set; }
+
+        public int LocalId { get; set; }
     }
 }

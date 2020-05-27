@@ -219,17 +219,11 @@ namespace GDS.Core.Models.Enums
         [Description("Wisdom of Solomon")]
         Wisdom = 181,
 
-        [Description("Sirach")]
-        Sirach = 182,
-
         [Description("Ecclesiasticus")]
         Ecclesiasticus = 211,
 
         [Description("Baruch")]
         IBaruk = 262,
-
-        [Description("2 Baruch")]
-        IIBaruk = 263,
 
         [Description("Letter of Jeremiah")]
         LetterOfJeremiah = 241,
@@ -279,213 +273,219 @@ namespace GDS.Core.Models.Enums
         Jasher = 53,
 
         //Ethopian
+        [Description("Sirach")]
+        Sirach = 182,
+
+        [Description("2 Baruch")]
+        IIBaruk = 263,
+
         [Description("Josephus")]
-        Josephus,
+        Josephus = 700,
 
         [Description("Reproof Tsegats")]
-        ReproofOfTegats,
+        ReproofOfTegats = 701,
 
         [Description("The Order of Zion")]
-        OrderOfZion,
+        OrderOfZion = 702,
 
         [Description("Abtils")]
-        Abtils,
+        Abtils = 703,
 
         [Description("Gitzew")]
-        Gitzew,
+        Gitzew = 704,
 
         [Description("1st Book of Covenant")]
-        ICovenant,
+        ICovenant = 705,
 
         [Description("2nd Book of Covenant")]
-        IICovenant,
+        IICovenant = 706,
 
         [Description("Didascalia")]
-        Didascalia,
+        Didascalia = 707,
 
         //Lost Books
         [Description("The Gospel of the Birth of Mary")]
-        GospelOfMary,
+        GospelOfMary = 800,
 
         [Description("The Protevangelion")]
-        Protevangelion,
+        Protevangelion = 801,
 
         [Description("The First Gospel of the Infancy of Jesus Christ")]
-        IInfancyOfJesus,
+        IInfancyOfJesus = 802,
 
         [Description("Thoma's Gospel of the Infancy of Jesus Christ")]
-        IIInfancyOfJesus,
+        IIInfancyOfJesus = 803,
 
         [Description("The Epistle of Jesus Christ and Abgarus King of Edessa")]
-        Abgarus,
+        Abgarus = 804,
 
         [Description("The Gospel of Nicodemus")]
-        Nicodemus,
+        Nicodemus = 805,
 
         [Description("The Apostles Creed")]
-        ApostlesCreed,
+        ApostlesCreed = 806,
 
         [Description("Epistle to the Laodiceans")]
-        Laodiceans,
+        Laodiceans = 807,
 
         [Description("Epistle to Seneca")]
-        Seneca,
+        Seneca = 809,
 
         [Description("The Acts of Paul and Thecla")]
-        ActsOfPaul,
+        ActsOfPaul = 810,
 
         [Description("The First Epistle of Clement to the Corinthians")]
-        IClement,
+        IClement = 811,
 
         [Description("The Second Epistle of Clement to the Corinthians")]
-        IIClement,
+        IIClement = 812,
 
         [Description("The General Epistle of Barnabas")]
-        Barnabas,
+        Barnabas = 813,
 
         [Description("The Epistle of Ignatius to the Ephesians")]
-        IgnatiusToEphesians,
+        IgnatiusToEphesians = 814,
 
         [Description("The Epistle of Ignatius to the Magnesians")]
-        IgnatiusToMagnesians,
+        IgnatiusToMagnesians = 815,
 
         [Description("The Epistle of Ignatius to the Trallians")]
-        IgnatiusToTraliians,
+        IgnatiusToTraliians = 816,
 
         [Description("The Epistle of Ignatius to the Romans")]
-        IgnatiusToRomans,
+        IgnatiusToRomans = 817,
 
         [Description("The Epistle of Ignatius to the Philadelphians")]
-        IgnatiusToPhiladelphia,
+        IgnatiusToPhiladelphia = 818,
 
         [Description("The Epistle of Ignatius to the Smyrnaeans")]
-        IgnatiusToSmyrna,
+        IgnatiusToSmyrna = 819,
 
         [Description("The Epistle of Ignatius to Polycarp")]
-        IgnatiusToPolycarp,
+        IgnatiusToPolycarp = 820,
 
         [Description("The Epistle of Polycarp to the Philippians")]
-        PolycarpToPhilippians,
+        PolycarpToPhilippians = 821,
 
         [Description("The Shepard of Hermas")]
-        Hermas,
+        Hermas = 822,
 
         [Description("The Second book of Hermas, Called Commandments")]
-        Commandments,
+        Commandments = 823,
 
         [Description("The Third book of Hermas, Called Similitudes")]
-        Similitudes,
+        Similitudes = 824,
 
         [Description("Letters of Herod and Pilate")]
-        HerodAndPilate,
+        HerodAndPilate = 825,
 
         [Description("Lost Gospel According to Peter")]
-        Peter,
+        Peter = 826,
 
         [Description("First book of Adam and Eve")]
-        IAdam,
+        IAdam = 827,
 
         [Description("Second book of Adam and Eve")]
-        IIAdam,
+        IIAdam = 828,
 
         [Description("Secrets of Enoch")]
-        IIEnoch,
+        IIEnoch = 829,
 
         [Description("Psalm of Solomon")]
-        PsalmsOfSolomon,
+        PsalmsOfSolomon = 830,
 
         [Description("Odes of Solomon")]
-        Ode,
+        Ode = 831,
 
         [Description("Letter of Aristeas")]
-        Aristeas,
+        Aristeas = 832,
 
         [Description("Story of Ahikar")]
-        Ahikar,
+        Ahikar = 833,
 
         [Description("Testamant of the Twelve Patriarchs")]
-        Patriarchs,
+        Patriarchs = 834,
 
         [Description("Testament of Reuben")]
-        Reuben,
+        Reuben = 835,
 
         [Description("Testament of Simeon")]
-        Simeon,
+        Simeon = 836,
 
         [Description("Testament of Levi")]
-        Levi,
+        Levi = 837,
 
         [Description("Testament of Judah")]
-        Judah,
+        Judah = 838,
 
         [Description("Testament of Issachar")]
-        Issachar,
+        Issachar = 839,
 
         [Description("Testament of Zebulun")]
-        Zebulan,
+        Zebulan = 840,
 
         [Description("Testament of Dan")]
-        Dan,
+        Dan = 841,
 
         [Description("Testament of Naphtali")]
-        Naphtali,
+        Naphtali = 842,
 
         [Description("Testament of Gad")]
-        Gad,
+        Gad = 843,
 
         [Description("Testament of Asher")]
-        Asher,
+        Asher = 844,
 
         [Description("Testament of Joseph")]
-        Joseph,
+        Joseph = 845,
 
         [Description("Testament of Benjamin")]
-        Benjamin,
+        Benjamin = 846,
 
         //Pseudepigrapha
         [Description("Apocalypse of Abraham")]
-        Abraham,
+        Abraham = 900,
 
         [Description("Apocalypse of Moses")]
-        Moses,
+        Moses = 901,
 
         [Description("Martyrdom and Ascension of Isaiah")]
-        MartyrdomIsaiah,
+        MartyrdomIsaiah = 902,
 
         [Description("Joseph and Aseneth")]
-        JosephAndAseneth,
+        JosephAndAseneth = 903,
 
         [Description("Life of Adam and Eve")]
-        AdamAndEve,
+        AdamAndEve = 904,
 
         [Description("Lives of the Prophets")]
-        Prophets,
+        Prophets = 905,
 
         [Description("Ladder of Jacob")]
-        Jacob,
+        Jacob = 906,
 
         [Description("Jannes and Jambres")]
-        JannesAndJambres,
+        JannesAndJambres = 907,
 
         [Description("History of the Captivity in Babylon")]
-        Babylon,
+        Babylon = 908,
 
         [Description("History of the Rechabites")]
-        Rechabites,
+        Rechabites = 909,
 
         [Description("Eldad and Modad")]
-        EldadAndModad,
+        EldadAndModad = 910,
 
         [Description("History of Joseph the Carpenter")]
-        JosephTheCarpenter,
+        JosephTheCarpenter = 911,
 
         [Description("Prayer of Joseph")]
-        PrayerOfJoseph,
+        PrayerOfJoseph = 912,
 
         [Description("Prayer of Jacob")]
-        PrayerOfJacob,
+        PrayerOfJacob = 913,
 
         [Description("Vision of Ezra")]
-        VisionOfEzra
+        VisionOfEzra = 914
     }
 }

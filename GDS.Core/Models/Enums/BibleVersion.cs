@@ -8,6 +8,9 @@ namespace GDS.Core.Models.Enums
     public enum BibleVersion
     {
         [Description("King James Version with Apochraphe extended")]
-        KJVAE
+        KJVAE,
+
+        [Description("King James Version with Strongs")]
+        KJV,
     }
 }

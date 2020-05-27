@@ -1,4 +1,5 @@
-﻿using GDS.Core.Models.Enums;
+﻿using GDS.Bibles.Core;
+using GDS.Core.Models.Enums;
 using GDS.KJVAE.Models;
 using SQLite;
 using System.IO;

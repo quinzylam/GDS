@@ -5,14 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GDS.Data.Seed
+namespace GDS.Data
 {
     public static class Seed
     {
-        private static List<Book> books;
-        private static List<Bible> bibles;
+        private static ICollection<Book> books;
+        private static ICollection<Bible> bibles;
 
-        public static List<Bible> Bibles
+        public static ICollection<Bible> Bibles
         {
             get
             {
@@ -24,7 +24,7 @@ namespace GDS.Data.Seed
             set => bibles = value;
         }
 
-        public static List<Book> Books
+        public static ICollection<Book> Books
         {
             get
             {
@@ -124,17 +124,14 @@ namespace GDS.Data.Seed
             AddBook(BookList.Bel, "Bel", section);
             AddBook(BookList.IMaccabees, "1 Macc", section);
             AddBook(BookList.IIMaccabees, "2 Macc", section);
-            AddBook(BookList.IIIIMaccabees, "3 Macc", section);
-            AddBook(BookList.IIIIMaccabees, "4 Macc", section);
             AddBook(BookList.IEsdras, "1 Esd", section, "3 Ezra");
             AddBook(BookList.IIEsdras, "2 Esd", section, "4 Ezra");
             AddBook(BookList.PrayerOfManasseh, "Pr of Man", section);
-            AddBook(BookList.AdditionalPsalm, "Add Psalm", section);
 
             section = Section.Extended;
-            AddBook(BookList.Jubilees, "Jubi", section);
-            AddBook(BookList.Enoch, "Enoc", section);
-            AddBook(BookList.Jasher, "Jash", section);
+            AddBook(BookList.Jubilees, "Jub", section);
+            AddBook(BookList.Enoch, "Eno", section);
+            AddBook(BookList.Jasher, "Jas", section);
 
             section = Section.Ethopian;
             AddBook(BookList.Josephus, "Josephus", section);
@@ -145,6 +142,9 @@ namespace GDS.Data.Seed
             AddBook(BookList.ICovenant, "1 Cov", section);
             AddBook(BookList.IICovenant, "2 Cov", section);
             AddBook(BookList.Didascalia, "Dida", section);
+            AddBook(BookList.IIIIMaccabees, "3 Macc", section);
+            AddBook(BookList.IIIIMaccabees, "4 Macc", section);
+            AddBook(BookList.AdditionalPsalm, "Add Psalm", section);
 
             section = Section.LostBooks;
             AddBook(BookList.GospelOfMary, "Mar", section);
@@ -215,9 +215,12 @@ namespace GDS.Data.Seed
         private static void AddBook(BookList book, string shortTitle, Section section, string ntitle = null)
         {
             if (!books.Any(x => x.Code == book))
-                books.Add(new Book { Id = Guid.NewGuid(), BookNo = (int)book, Title = EnumHelper.GetDescription(book), ShortTitle = shortTitle, Section = section, NTitle = ntitle });
+                books.Add(new Book { Id = Guid.NewGuid(), Code = book, LocalId = (int)book, Title = EnumHelper.GetDescription(book), ShortTitle = shortTitle, Section = section, NTitle = ntitle });
 
             var bk = books.FirstOrDefault(x => x.Code == book);
+
+            if (bk.LocalId != (int)book)
+                bk.LocalId = (int)book;
 
             if (!bk.Title.Equals(book.GetDescription()))
                 bk.Title = book.GetDescription();
@@ -228,7 +231,7 @@ namespace GDS.Data.Seed
             if (!bk.Section.Equals(section))
                 bk.Section = section;
 
-            if (!bk.NTitle.Equals(ntitle))
+            if (ntitle != null && !ntitle.Equals(bk.NTitle))
                 bk.NTitle = ntitle;
         }
 
@@ -242,9 +245,12 @@ namespace GDS.Data.Seed
         private static void AddBible(BibleVersion version, int numOfBooks)
         {
             if (!bibles.Any(x => x.Code == version))
-                bibles.Add(new Bible { Id = Guid.NewGuid(), Code = version, Title = version.GetDescription() });
+                bibles.Add(new Bible { Id = Guid.NewGuid(), LocalId = (int)version, Code = version, Title = version.GetDescription() });
 
             var result = bibles.FirstOrDefault(x => x.Code == version);
+
+            if (result.LocalId != (int)version)
+                result.LocalId = (int)version;
 
             if (!result.Title.Equals(version.GetDescription()))
                 result.Title = version.GetDescription();

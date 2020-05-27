@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GDS.Bibles.Core\GDS.Bibles.Core.csproj" />
     <ProjectReference Include="..\GDS.Core\GDS.Core.csproj" />
     <ProjectReference Include="..\GDS.Data.Seed\GDS.Data.Seed.csproj" />
   </ItemGroup>

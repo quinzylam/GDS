@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Mobile\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
