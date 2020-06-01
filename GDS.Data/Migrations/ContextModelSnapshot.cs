@@ -39,6 +39,8 @@ namespace GDS.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code");
+
                     b.ToTable("Bibles");
                 });
 
@@ -61,12 +63,16 @@ namespace GDS.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ShortTitle")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code");
+
+                    b.HasIndex("ShortTitle");
 
                     b.ToTable("Books");
                 });
@@ -80,8 +86,8 @@ namespace GDS.Data.Migrations
                     b.Property<Guid>("BibleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BookCode")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BookCode")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
@@ -99,10 +105,14 @@ namespace GDS.Data.Migrations
 
                     b.HasIndex("BibleId");
 
+                    b.HasIndex("BookCode");
+
                     b.HasIndex("BookId");
 
                     b.HasIndex("LocalId")
                         .IsUnique();
+
+                    b.HasIndex("Version");
 
                     b.ToTable("Chapters");
                 });
@@ -132,8 +142,12 @@ namespace GDS.Data.Migrations
 
                     b.HasIndex("ChapterId");
 
+                    b.HasIndex("ChapterNum");
+
                     b.HasIndex("LocalId")
                         .IsUnique();
+
+                    b.HasIndex("Position");
 
                     b.ToTable("Verses");
                 });

@@ -6,6 +6,9 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using GDS.Mobile.Models;
+using GDS.Mobile.Models.Enums;
+using GDS.Mobile.Factories;
+using GDS.Mobile.Services;
 
 namespace GDS.Mobile.Views
 {
@@ -14,14 +17,22 @@ namespace GDS.Mobile.Views
     [DesignTimeVisible(false)]
     public partial class MainPage : MasterDetailPage
     {
-        Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
+        private readonly Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
+        public MenuItemType CurrentMenu { get; internal set; }
+        public MenuItemType PrevMenu { get; internal set; }
+
         public MainPage()
         {
             InitializeComponent();
 
-            MasterBehavior = MasterBehavior.Popover;
+            Master = new MenuPage();
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            Detail = new NavigationPage(new ReadPage());
+
+            if (Device.RuntimePlatform == Device.UWP)
+            {
+                MasterBehavior = MasterBehavior.Popover;
+            }
         }
 
         public async Task NavigateFromMenu(int id)
@@ -30,17 +41,23 @@ namespace GDS.Mobile.Views
             {
                 switch (id)
                 {
-                    case (int)MenuItemType.Browse:
-                        MenuPages.Add(id, new NavigationPage(new ItemsPage()));
+                    case (int)MenuItemType.Read:
+                        AddToMenu(id, new ReadPage());
                         break;
+
                     case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                        AddToMenu(id, new AboutPage());
                         break;
                 }
             }
 
             var newPage = MenuPages[id];
 
+            await NavigateTo(newPage);
+        }
+
+        private async Task NavigateTo(NavigationPage newPage)
+        {
             if (newPage != null && Detail != newPage)
             {
                 Detail = newPage;
@@ -50,6 +67,24 @@ namespace GDS.Mobile.Views
 
                 IsPresented = false;
             }
+        }
+
+        public static void ExitApp()
+        {
+            var closer = AppFactory.GetInstance<IExitService>();
+            closer?.CloseApplication();
+        }
+
+        public void AddToMenu(int id, ContentPage page)
+        {
+            MenuPages.Add(id, new NavigationPage(page));
+        }
+
+        public async Task Back()
+        {
+            Detail = new NavigationPage(new MenuPage());
+            if (Device.RuntimePlatform == Device.Android)
+                await Task.Delay(100);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using GDS.Mobile.Models;
+﻿using GDS.Mobile.Factories;
+using GDS.Mobile.Models;
+using GDS.Mobile.Models.Enums;
+using GDS.Mobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,29 +15,24 @@ namespace GDS.Mobile.Views
     [DesignTimeVisible(false)]
     public partial class MenuPage : ContentPage
     {
-        MainPage RootPage { get => Application.Current.MainPage as MainPage; }
-        List<HomeMenuItem> menuItems;
+        private readonly MenuViewModel _viewModel;
+
         public MenuPage()
         {
+            _viewModel = AppFactory.GetInstance<MenuViewModel>();
             InitializeComponent();
 
-            menuItems = new List<HomeMenuItem>
-            {
-                new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
-                new HomeMenuItem {Id = MenuItemType.About, Title="About" }
-            };
-
-            ListViewMenu.ItemsSource = menuItems;
-
-            ListViewMenu.SelectedItem = menuItems[0];
-            ListViewMenu.ItemSelected += async (sender, e) =>
+            ListViewMenu.SelectedItem = _viewModel.MenuItems[0];
+            ListViewMenu.ItemSelected += (sender, e) =>
             {
                 if (e.SelectedItem == null)
                     return;
 
-                var id = (int)((HomeMenuItem)e.SelectedItem).Id;
-                await RootPage.NavigateFromMenu(id);
+                var id = ((HomeMenuItem)e.SelectedItem).Id;
+                _viewModel.NavigateToCommand.Execute(id);
             };
+
+            BindingContext = _viewModel;
         }
     }
 }

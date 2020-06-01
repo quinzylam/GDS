@@ -1,5 +1,7 @@
 ﻿using GDS.Core.Data;
 using GDS.Core.Models;
+using GDS.Core.Models.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,12 @@ namespace GDS.Data.DataStore
 
         public IQueryable<Bible> Get()
         {
-            return _ctx.Bibles;
+            return _ctx.Bibles.AsNoTracking();
+        }
+
+        public Bible Get(Guid id)
+        {
+            return _ctx.Find<Bible>(id);
         }
     }
 }

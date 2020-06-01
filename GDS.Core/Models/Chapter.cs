@@ -9,7 +9,7 @@ namespace GDS.Core.Models
     {
         public Guid BookId { get; set; }
         public Guid BibleId { get; set; }
-        public string BookCode { get; set; }
+        public BookList? BookCode { get; set; }
         public BibleVersion Version { get; set; }
         public int Num { get; set; }
 

@@ -46,7 +46,7 @@ namespace GDS.KJVAE.Services
                     LocalId = x.Id,
                     Book = Books.FirstOrDefault(b => b.Title == x.Title || (b.NTitle ?? string.Empty).Contains(x.Title)),
                     BookId = Books.FirstOrDefault(b => b.Title == x.Title || (b.NTitle ?? string.Empty).Contains(x.Title))?.Id ?? default,
-                    BookCode = Books.FirstOrDefault(b => b.Title == x.Title || (b.NTitle ?? string.Empty).Contains(x.Title)).ShortTitle ?? default,
+                    BookCode = Books.FirstOrDefault(b => b.Title == x.Title || (b.NTitle ?? string.Empty).Contains(x.Title)).Code,
                     BibleId = _bible.Id,
                     Version = BibleVersion.KJVAE,
                     Num = x.NumOfChapters

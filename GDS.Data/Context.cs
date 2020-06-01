@@ -17,8 +17,15 @@ namespace GDS.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Book>().HasIndex(x => x.ShortTitle);
+            modelBuilder.Entity<Book>().HasIndex(x => x.Code);
+            modelBuilder.Entity<Bible>().HasIndex(x => x.Code);
             modelBuilder.Entity<Chapter>().HasIndex(x => x.LocalId).IsUnique();
+            modelBuilder.Entity<Chapter>().HasIndex(x => x.Version);
+            modelBuilder.Entity<Chapter>().HasIndex(x => x.BookCode);
             modelBuilder.Entity<Verse>().HasIndex(x => x.LocalId).IsUnique();
+            modelBuilder.Entity<Verse>().HasIndex(x => x.ChapterNum);
+            modelBuilder.Entity<Verse>().HasIndex(x => x.Position);
         }
     }
 }

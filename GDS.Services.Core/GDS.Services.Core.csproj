@@ -8,4 +8,8 @@
     <ProjectReference Include="..\GDS.Core\GDS.Core.csproj" />
     <ProjectReference Include="..\GDS.Data\GDS.Data.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
 </Project>

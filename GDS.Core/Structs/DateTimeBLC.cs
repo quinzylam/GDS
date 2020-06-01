@@ -9,6 +9,7 @@ namespace GDS.Core.Structs
     {
         // Number of 100ns ticks per time unit
         private const long TicksPerMillisecond = 10000;
+
         private const long TicksPerSecond = TicksPerMillisecond * 1000;
         private const long TicksPerMinute = TicksPerSecond * 60;
         private const long TicksPerHour = TicksPerMinute * 60;
@@ -16,18 +17,18 @@ namespace GDS.Core.Structs
 
         // Number of milliseconds per time unit
         private const int MillisPerSecond = 1000;
+
         private const int MillisPerMinute = MillisPerSecond * 60;
         private const int MillisPerHour = MillisPerMinute * 60;
         private const int MillisPerDay = MillisPerHour * 24;
 
         private const int DaysPerYear = 360;
-        private const int DaysTo10000 = DaysPerYear * 10000;  
+        private const int DaysTo10000 = DaysPerYear * 10000;
 
         internal const long MinTicks = 0;
         internal const long MaxTicks = DaysTo10000 * TicksPerDay - 1;
         private const long MaxMillis = (long)DaysTo10000 * MillisPerDay;
 
-        
         private const int DatePartYear = 0;
         private const int DatePartDayOfYear = 1;
         private const int DatePartMonth = 2;
@@ -35,10 +36,10 @@ namespace GDS.Core.Structs
 
         private const int HoursPerDay = 24;
 
-        
         private static readonly int[] DaysToMonth360 = {
             0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360};
-        private ulong dateData;
+
+        private readonly ulong dateData;
 
         // Constructs a DateTime from a given year, month, and day. The
         // time-of-day of the resulting DateTime is always midnight.
@@ -51,30 +52,27 @@ namespace GDS.Core.Structs
         private static long DateToHours(int year, int month, int day)
         {
             var days = 0;
-            if(year >= 1)
+            if (year >= 1)
             {
                 days += (year - 1) * DaysPerYear;
             }
             if (month >= 1 && month <= 12)
             {
                 int[] dtm = DaysToMonth360;
-                days += dtm[month-1];
+                days += dtm[month - 1];
             }
             if (day >= 1 && day <= 30)
             {
                 days += day - 1;
             }
             return days * HoursPerDay;
-
         }
-
 
         // Constructs a DateTime from a given year, month, day, hour,
         // minute, and second.
         //
         public DateTimeBLC(int year, int month, int day, int hour)
         {
-           
             this.dateData = (UInt64)(DateToHours(year, month, day) + hour);
         }
 

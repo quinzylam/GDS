@@ -1,5 +1,7 @@
 ﻿using GDS.Core.Data;
 using GDS.Core.Models;
+using GDS.Core.Models.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,12 @@ namespace GDS.Data.DataStore
 
         public IQueryable<Book> Get()
         {
-            return _ctx.Books;
+            return _ctx.Books.AsNoTracking();
+        }
+
+        public Book Get(Guid id)
+        {
+            return _ctx.Find<Book>(id);
         }
     }
 }

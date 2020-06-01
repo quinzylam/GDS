@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GDS.Mobile.Factories;
+using GDS.Mobile.Services;
+using GDS.Mobile.UWP.Service;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,8 +23,14 @@ namespace GDS.Mobile.UWP
         public MainPage()
         {
             this.InitializeComponent();
-
+            RegisterTypes();
             LoadApplication(new GDS.Mobile.App());
+        }
+
+        private void RegisterTypes()
+        {
+            AppFactory.RegisterType<IExitService, ExitService>();
+            AppFactory.RegisterService();
         }
     }
 }

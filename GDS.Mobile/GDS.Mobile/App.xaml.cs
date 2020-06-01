@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using GDS.Mobile.Views;
+using GDS.Core.Models.Enums;
 
 namespace GDS.Mobile
 {
@@ -9,7 +10,6 @@ namespace GDS.Mobile
         {
             InitializeComponent();
 
-            //DependencyService.Register<MockDataStore>();
             MainPage = new MainPage();
         }
 

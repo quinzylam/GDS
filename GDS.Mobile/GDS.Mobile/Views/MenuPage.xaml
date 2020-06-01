@@ -6,26 +6,21 @@
              mc:Ignorable="d"
              x:Class="GDS.Mobile.Views.MenuPage"
              Title="Menu">
-             
+
     <StackLayout VerticalOptions="FillAndExpand">
+        <Label x:Name="lblStatus" Text="{Binding Status}"  IsVisible="{Binding HasStatus}" FontSize="Caption" />
+        <Label x:Name="lblError" Text="{Binding ErrorMsg}" IsVisible="{Binding HasError}" FontSize="Caption" TextColor="Red" />
         <ListView x:Name="ListViewMenu"
-                    HasUnevenRows="True">
-            <d:ListView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Item 1</x:String>
-                    <x:String>Item 2</x:String>
-                </x:Array>
-            </d:ListView.ItemsSource>
+                    HasUnevenRows="True" ItemsSource="{Binding MenuItems}" IsPullToRefreshEnabled="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Grid Padding="10">
-                            <Label Text="{Binding Title}" d:Text="{Binding .}" FontSize="20"/>
+                            <Label Text="{Binding Title}" d:Text="{Binding .}" FontSize="20" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
     </StackLayout>
-
 </ContentPage>

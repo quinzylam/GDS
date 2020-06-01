@@ -25,11 +25,11 @@ namespace GDS.Mobile.ViewModels
             {
                 var newItem = item as Item;
                 Items.Add(newItem);
-                await DataStore.InsertAsync(newItem);
+                //await DataStore.InsertAsync(newItem);
             });
         }
 
-        async Task ExecuteLoadItemsCommand()
+        private async Task ExecuteLoadItemsCommand()
         {
             if (IsBusy)
                 return;
@@ -39,11 +39,11 @@ namespace GDS.Mobile.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetAsync(true);
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                }
+                //var items = await DataStore.GetAsync(true);
+                //foreach (var item in items)
+                //{
+                //    Items.Add(item);
+                //}
             }
             catch (Exception ex)
             {
