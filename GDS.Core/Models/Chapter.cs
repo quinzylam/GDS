@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GDS.Core.Models
 {
-    public class Chapter : ReadModel
+    public class BibleBook : ReadModel
     {
         public Guid BookId { get; set; }
         public Guid BibleId { get; set; }

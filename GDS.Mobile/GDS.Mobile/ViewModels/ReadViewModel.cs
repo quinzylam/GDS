@@ -14,24 +14,38 @@ namespace GDS.Mobile.ViewModels
 {
     public class ReadViewModel : BaseViewModel
     {
-        private readonly ISharedService _sharedService;
-        private readonly IChapterService<Chapter> _chapterService;
+        private readonly IVerseService<Verse> _verseService;
+        private ObservableCollection<Verse> verses;
+        private string reference;
 
-        public ObservableCollection<Verse> Verses { get; set; }
+        public string Reference { get => reference; set => SetProperty(ref reference, value); }
 
-        public ReadViewModel(ISharedService sharedService, IChapterService<Chapter> chapterService)
+        public ObservableCollection<Verse> Verses { get => verses; set => SetProperty(ref verses, value); }
+
+        public ReadViewModel(IVerseService<Verse> verseService)
         {
-            _sharedService = sharedService;
-            _chapterService = chapterService;
+            _verseService = verseService;
+        }
+
+        public ReadViewModel()
+        {
         }
 
         public ICommand LoadCommand => new AsyncCommand(LoadAsync, Watcher);
+        public ICommand SelectCommand => new RelayCommand(Select);
+
+        private void Select(object arg)
+        {
+            OnNavigate("Select");
+        }
 
         private async Task LoadAsync(object arg)
         {
-            var chapter = await _chapterService.GetAsync(_sharedService.Version, _sharedService.BookCode);
-            if (chapter.Verses.Any())
-                Verses = new ObservableCollection<Verse>(chapter.Verses);
+            Title = await SharedService.GetTitleAsync();
+            Reference = await SharedService.GetReferenceAsync();
+            var verses = await _verseService.GetAsync(SharedService.Version, SharedService.BookCode, SharedService.ChapterNo);
+            if (verses.Any())
+                Verses = new ObservableCollection<Verse>(verses);
         }
     }
 }

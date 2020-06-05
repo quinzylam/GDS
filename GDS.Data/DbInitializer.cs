@@ -56,27 +56,27 @@ namespace GDS.Data
                 context.SaveChanges();
             }
 
-            if (!context.Chapters.Any())
+            if (!context.BibleBooks.Any())
             {
                 var service = new KJVAEService(context.Bibles.FirstOrDefault(x => x.Code == Core.Models.Enums.BibleVersion.KJVAE), context.Books.ToList());
-                foreach (var item in service.Chapters)
-                    context.Chapters.Add(item);
+                foreach (var item in service.BibleBooks)
+                    context.BibleBooks.Add(item);
                 context.SaveChanges();
             }
             else if (update)
             {
                 var service = new KJVAEService(context.Bibles.FirstOrDefault(x => x.Code == Core.Models.Enums.BibleVersion.KJVAE), context.Books.ToList());
 
-                foreach (var item in service.Chapters)
+                foreach (var item in service.BibleBooks)
                 {
-                    var dbobj = context.Chapters.FirstOrDefault(x => x.LocalId == item.LocalId);
+                    var dbobj = context.BibleBooks.FirstOrDefault(x => x.LocalId == item.LocalId);
                     if (dbobj != null)
                     {
                         item.Id = dbobj.Id;
                         context.Entry(dbobj).CurrentValues.SetValues(item);
                     }
                     else
-                        context.Chapters.Add(item);
+                        context.BibleBooks.Add(item);
                 }
                 context.SaveChanges();
             }
@@ -85,7 +85,7 @@ namespace GDS.Data
             {
                 var service = new KJVAEService(context.Bibles.FirstOrDefault(x => x.Code == Core.Models.Enums.BibleVersion.KJVAE), context.Books.ToList())
                 {
-                    Chapters = context.Chapters.ToList()
+                    BibleBooks = context.BibleBooks.ToList()
                 };
                 foreach (var item in service.Verses)
                     context.Verses.Add(item);
@@ -95,7 +95,7 @@ namespace GDS.Data
             {
                 var service = new KJVAEService(context.Bibles.FirstOrDefault(x => x.Code == Core.Models.Enums.BibleVersion.KJVAE), context.Books.ToList())
                 {
-                    Chapters = context.Chapters.ToList()
+                    BibleBooks = context.BibleBooks.ToList()
                 };
 
                 foreach (var item in service.Verses)

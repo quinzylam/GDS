@@ -12,7 +12,7 @@ namespace GDS.KJVAE.Services
     public class KJVAEService
     {
         private readonly Repository _repo;
-        private IEnumerable<Chapter> chapters;
+        private IEnumerable<BibleBook> bibleBooks;
         private IEnumerable<Verse> verses;
         private readonly Bible _bible;
 
@@ -23,24 +23,24 @@ namespace GDS.KJVAE.Services
             _repo = new Repository();
         }
 
-        public IEnumerable<Chapter> Chapters
+        public IEnumerable<BibleBook> BibleBooks
         {
             get
             {
-                if (chapters == null)
-                    GetChapters();
-                return chapters;
+                if (bibleBooks == null)
+                    GetBibleBooks();
+                return bibleBooks;
             }
-            set => chapters = value;
+            set => bibleBooks = value;
         }
 
-        private void GetChapters()
+        private void GetBibleBooks()
         {
             if (Books == null || _bible == null)
                 return;
 
             if (_repo.Connection.Table<Models.Chapter>().Any())
-                chapters = _repo.Connection.Table<Models.Chapter>().Select(x => new Chapter
+                BibleBooks = _repo.Connection.Table<Models.Chapter>().Select(x => new BibleBook
                 {
                     Id = Guid.NewGuid(),
                     LocalId = x.Id,
@@ -68,13 +68,13 @@ namespace GDS.KJVAE.Services
 
         private void GetVerses()
         {
-            if (Chapters == null)
+            if (BibleBooks == null)
                 return;
             verses = _repo.Connection.Table<Models.Verse>().Select(x => new Verse
             {
                 Id = Guid.NewGuid(),
                 LocalId = x.Id,
-                ChapterId = Chapters.FirstOrDefault(c => c.LocalId == x.ChapterId).Id,
+                ChapterId = BibleBooks.FirstOrDefault(c => c.LocalId == x.ChapterId).Id,
                 ChapterNum = x.ChapterNum,
                 Position = x.Position,
                 Text = x.Text,

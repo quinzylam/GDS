@@ -2,10 +2,8 @@
 using GDS.Core.Logging;
 using GDS.Core.Models;
 using GDS.Core.Services;
+using GDS.Data.Mobile;
 using GDS.Mobile.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Unity;
 using Unity.Lifetime;
 using Unity.ServiceLocation;
@@ -21,6 +19,9 @@ namespace GDS.Mobile.Factories
         {
             DependencyResolver.ResolveUsing(type => _iocContainer.IsRegistered(type) ? _iocContainer.Resolve(type) : null);
 
+            //Data
+            _iocContainer.RegisterSingleton<IMobileContext, Context>();
+
             //Logger
             _iocContainer.RegisterType<ILogger, Logger>(new HierarchicalLifetimeManager());
 
@@ -31,7 +32,9 @@ namespace GDS.Mobile.Factories
             _iocContainer.RegisterSingleton<ISharedService, SharedService>();
 
             //Services
-            _iocContainer.RegisterType<IChapterService<Chapter>, ChapterService>(new HierarchicalLifetimeManager());
+            _iocContainer.RegisterType<IVerseService<Verse>, VerseService>(new HierarchicalLifetimeManager());
+            _iocContainer.RegisterType<IBibleBookService<BibleBook>, BibleBookService>(new HierarchicalLifetimeManager());
+            _iocContainer.RegisterType<IBookService<Book>, BookService>(new HierarchicalLifetimeManager());
         }
 
         public static void RegisterType<TInterface, T>() where TInterface : class where T : class, TInterface

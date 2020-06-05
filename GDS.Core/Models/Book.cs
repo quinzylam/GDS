@@ -13,6 +13,6 @@ namespace GDS.Core.Models
         public Section Section { get; set; }
         public string NTitle { get; set; }
 
-        public virtual IEnumerable<Chapter> Chapters { get; set; }
+        public virtual IEnumerable<BibleBook> BibleBooks { get; set; }
     }
 }

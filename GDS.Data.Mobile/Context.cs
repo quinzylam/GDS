@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GDS.Core.Data;
+using GDS.Core.Models;
 using GDS.Data.Mobile.Models;
 using SQLite;
 using System;
@@ -11,24 +12,38 @@ namespace GDS.Data.Mobile
 {
     public class Context : IMobileContext
     {
-        public Context(string name)
+        private const string DB_NAME = "GDS";
+
+        public Context()
         {
-            Initialize(name);
+            Initialize();
         }
 
-        public SQLiteConnection Conn { get; set; }
+        public SQLiteAsyncConnection Conn { get; set; }
 
         public IConfigurationProvider MapConfig => new MapperConfiguration(cfg =>
           {
-              cfg.CreateMap<ChapterDbo, ChapterDbo>()
+              cfg.CreateMap<Bible, BibleDbo>()
+              .ReverseMap();
+
+              cfg.CreateMap<Book, BookDbo>()
+              .ReverseMap();
+
+              cfg.CreateMap<BibleBook, BibleBookDbo>()
+              .ReverseMap();
+
+              cfg.CreateMap<Verse, VerseDbo>()
               .ReverseMap();
           });
 
-        private void Initialize(string name)
+        private async void Initialize()
         {
-            Conn = new SQLiteConnection(Path.Combine(Constants.DBPath, string.Concat(name, Constants.DB_EXT)));
+            Conn = new SQLiteAsyncConnection(Path.Combine(Constants.DBPath, string.Concat(DB_NAME, Constants.DB_EXT)));
 
-            Conn.CreateTable<ChapterDbo>();
+            await Conn.CreateTableAsync<BibleDbo>();
+            await Conn.CreateTableAsync<BookDbo>();
+            await Conn.CreateTableAsync<BibleBookDbo>();
+            await Conn.CreateTableAsync<VerseDbo>();
         }
     }
 }

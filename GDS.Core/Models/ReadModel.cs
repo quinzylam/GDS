@@ -8,7 +8,7 @@ namespace GDS.Core.Models
     public abstract class ReadModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public virtual Guid Id { get; set; }
 
         public int LocalId { get; set; }
     }

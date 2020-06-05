@@ -8,7 +8,7 @@ using System.Text;
 
 namespace GDS.Data.DataStore
 {
-    public class ChapterDataStore : IDataStore<Chapter>
+    public class ChapterDataStore : IDataStore<BibleBook>
     {
         private readonly Context _ctx;
 
@@ -17,14 +17,14 @@ namespace GDS.Data.DataStore
             _ctx = ctx;
         }
 
-        public IQueryable<Chapter> Get()
+        public IQueryable<BibleBook> Get()
         {
-            return _ctx.Chapters.AsNoTracking();
+            return _ctx.BibleBooks.AsNoTracking();
         }
 
-        public Chapter Get(Guid id)
+        public BibleBook Get(Guid id)
         {
-            return _ctx.Find<Chapter>(id);
+            return _ctx.Find<BibleBook>(id);
         }
     }
 }

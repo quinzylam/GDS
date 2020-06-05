@@ -8,11 +8,7 @@ namespace GDS.Core.Services
 {
     public interface IBibleService<T>
     {
-        IEnumerable<T> Get();
-
         Task<IEnumerable<T>> GetAsync();
-
-        T Get(BibleVersion bible);
 
         Task<T> GetAsync(BibleVersion bible);
     }

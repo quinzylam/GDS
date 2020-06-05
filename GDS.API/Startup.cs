@@ -78,7 +78,7 @@ namespace GDS.API
 
             builder.EntitySet<Book>("Books");
             builder.EntitySet<Bible>("Bibles");
-            builder.EntitySet<Chapter>("Chapters");
+            builder.EntitySet<BibleBook>("Chapters");
             builder.EntitySet<Verse>("Verses");
             //builder.EntityType<Bible>().ContainsMany(x => x.Chapters);
             //builder.EntityType<Chapter>().ContainsMany(x => x.Verses);

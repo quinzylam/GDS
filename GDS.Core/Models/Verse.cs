@@ -10,5 +10,6 @@ namespace GDS.Core.Models
         public int ChapterNum { get; set; }
         public int Position { get; set; }
         public string Text { get; set; }
+        public virtual BibleBook Chapter { get; set; }
     }
 }

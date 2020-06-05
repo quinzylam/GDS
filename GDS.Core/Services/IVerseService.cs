@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GDS.Core.Services
 {
     public interface IVerseService<T>
     {
-        IEnumerable<T> Get(BibleVersion bible, BookList book);
+        Task<IEnumerable<T>> GetAsync(BibleVersion bible, BookList book, int chapter);
     }
 }

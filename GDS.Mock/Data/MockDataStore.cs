@@ -1,5 +1,6 @@
-﻿using GDS.Core.Models;
-using GDS.Mobile.Core.Data;
+﻿using GDS.Core.Data.Mobile;
+using GDS.Core.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,9 +46,19 @@ namespace GDS.Mock.Data
             return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<IEnumerable<T>> GetAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<T>> GetAsync()
         {
             return await Task.FromResult(items);
+        }
+
+        public bool Any()
+        {
+            return items.Any();
+        }
+
+        public Task<bool> UpdateAsync(T item, bool forceRefresh)
+        {
+            throw new NotImplementedException();
         }
     }
 }

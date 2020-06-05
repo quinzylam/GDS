@@ -1,5 +1,7 @@
 ﻿using GDS.Core.Logging;
+using GDS.Core.Services;
 using GDS.Mobile.Commands;
+using GDS.Mobile.Events;
 using GDS.Mobile.Factories;
 using GDS.Mobile.Models;
 using GDS.Mobile.Views;
@@ -19,6 +21,7 @@ namespace GDS.Mobile.ViewModels
 
         public BaseViewModel()
         {
+            _sharedService = AppFactory.GetInstance<ISharedService>();
             Logger = AppFactory.GetInstance<ILogger>();
             Watcher = new TaskWatcher();
             Watcher.PropertyChanged += Watcher_PropertyChanged;
@@ -67,7 +70,12 @@ namespace GDS.Mobile.ViewModels
         }
 
         public TaskWatcher Watcher { get; }
+
+        private readonly ISharedService _sharedService;
+
         public ILogger Logger { get; }
+
+        public ISharedService SharedService => _sharedService;
 
         internal bool HandleError(string message = null, Exception ex = null)
         {
@@ -109,6 +117,24 @@ namespace GDS.Mobile.ViewModels
                         HandleError(Watcher.ErrorMessage, Watcher.InnerException);
                     break;
             }
+        }
+
+        public delegate void OnNavigateEventHandler(object sender, NavigateEventArgs e);
+
+        public event OnNavigateEventHandler Navigate;
+
+        public delegate void OnBackEventHandler(object sender, EventArgs e);
+
+        public event OnBackEventHandler Back;
+
+        public void OnBack()
+        {
+            Back?.Invoke(this, new EventArgs());
+        }
+
+        public void OnNavigate(string focus)
+        {
+            Navigate?.Invoke(this, new NavigateEventArgs() { Focus = focus });
         }
     }
 }

@@ -48,7 +48,7 @@ namespace GDS.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Chapters",
+                name: "BibleBooks",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -60,9 +60,9 @@ namespace GDS.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Chapters", x => x.Id);
+                    table.PrimaryKey("PK_BibleBooks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Chapters_Books_BookId",
+                        name: "FK_BibleBooks_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
@@ -84,9 +84,9 @@ namespace GDS.Data.Migrations
                 {
                     table.PrimaryKey("PK_Verses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Verses_Chapters_ChapterId",
+                        name: "FK_Verses_BibleBooks_ChapterId",
                         column: x => x.ChapterId,
-                        principalTable: "Chapters",
+                        principalTable: "BibleBooks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -97,13 +97,13 @@ namespace GDS.Data.Migrations
                 column: "BibleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chapters_BookId",
-                table: "Chapters",
+                name: "IX_BibleBooks_BookId",
+                table: "BibleBooks",
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Chapters_LocalId",
-                table: "Chapters",
+                name: "IX_BibleBooks_LocalId",
+                table: "BibleBooks",
                 column: "LocalId",
                 unique: true);
 
@@ -125,7 +125,7 @@ namespace GDS.Data.Migrations
                 name: "Verses");
 
             migrationBuilder.DropTable(
-                name: "Chapters");
+                name: "BibleBooks");
 
             migrationBuilder.DropTable(
                 name: "Books");

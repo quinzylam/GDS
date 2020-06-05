@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GDS.Core.Data
+namespace GDS.Data.Mobile
 {
     public interface IMobileContext
     {
-        SQLite.SQLiteConnection Conn { get; set; }
+        SQLite.SQLiteAsyncConnection Conn { get; set; }
         IConfigurationProvider MapConfig { get; }
     }
 }
