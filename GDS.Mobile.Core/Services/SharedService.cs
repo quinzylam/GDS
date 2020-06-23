@@ -32,7 +32,7 @@ namespace GDS.Mobile.Core.Services
         {
             if (Book == null)
                 Book = await _bookService.GetAsync(BookCode);
-            return $"{Book.Title} {ChapterNo} {Version.ToString()}";
+            return $"{Book.Title} {ChapterNo} {Version}";
         }
 
         public async Task<string> GetReferenceAsync(bool includeVersion = false)

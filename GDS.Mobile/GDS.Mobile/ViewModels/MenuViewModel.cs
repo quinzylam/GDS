@@ -14,8 +14,8 @@ namespace GDS.Mobile.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
-        private ObservableCollection<HomeMenuItem> menuItems;
-        public ObservableCollection<HomeMenuItem> MenuItems { get => menuItems; set => SetProperty(ref menuItems, value); }
+        private ObservableCollection<HomeMenuItem> _menuItems;
+        public ObservableCollection<HomeMenuItem> MenuItems { get => _menuItems; set => SetProperty(ref _menuItems, value); }
 
         public MenuViewModel() : base()
         {
@@ -44,6 +44,7 @@ namespace GDS.Mobile.ViewModels
             return new ObservableCollection<HomeMenuItem>
             {
                 GetMenuItem(MenuItemType.Read),
+                GetMenuItem(MenuItemType.Library),
                 GetMenuItem(MenuItemType.Logout),
                 GetMenuItem(MenuItemType.Exit),
             };

@@ -9,6 +9,6 @@ namespace GDS.API.Controllers
     public class BooksController : ODataController
     {
         [HttpGet, EnableQuery]
-        public IQueryable<Book> Get([FromServices]Context context) => context.Books;
+        public static IQueryable<Book> Get([FromServices] Context context) => context.Books;
     }
 }

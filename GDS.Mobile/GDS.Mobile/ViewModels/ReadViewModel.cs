@@ -15,12 +15,12 @@ namespace GDS.Mobile.ViewModels
     public class ReadViewModel : BaseViewModel
     {
         private readonly IVerseService<Verse> _verseService;
-        private ObservableCollection<Verse> verses;
-        private string reference;
+        private ObservableCollection<Verse> _verses;
+        private string _reference;
 
-        public string Reference { get => reference; set => SetProperty(ref reference, value); }
+        public string Reference { get => _reference; set => SetProperty(ref _reference, value); }
 
-        public ObservableCollection<Verse> Verses { get => verses; set => SetProperty(ref verses, value); }
+        public ObservableCollection<Verse> Verses { get => _verses; set => SetProperty(ref _verses, value); }
 
         public ReadViewModel(IVerseService<Verse> verseService)
         {

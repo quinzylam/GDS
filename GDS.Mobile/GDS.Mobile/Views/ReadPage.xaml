@@ -11,6 +11,9 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="{Binding ErrorMsg}" IsVisible="{Binding HasError}" TextColor="Red" />
+            <Label Text="{Binding Info}" IsVisible="{Binding HasInfo}" />
+            <Label Text="{Binding Status}" IsVisible="{Binding HasStatus}" />
             <ListView ItemsSource="{Binding Verses}"
                         HasUnevenRows="True"
                         ItemSelected="ListView_ItemSelected"
@@ -19,7 +22,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" Margin="5">
-                                <Label Text="{Binding Position}" HorizontalOptions="Fill" />
+                                <Label Text="{Binding Position}" HorizontalOptions="Fill" LineBreakMode="NoWrap" />
                                 <Label Text="{Binding Text}" TextType="Html" HorizontalOptions="FillAndExpand" />
                             </StackLayout>
                         </ViewCell>

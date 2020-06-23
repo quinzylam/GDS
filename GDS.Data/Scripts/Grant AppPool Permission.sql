@@ -1,0 +1,12 @@
+IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = 'IIS APPPOOL\GDS.API')
+BEGIN
+    CREATE LOGIN [IIS APPPOOL\GDS.API] 
+      FROM WINDOWS WITH DEFAULT_DATABASE=[master], 
+      DEFAULT_LANGUAGE=[us_english]
+END
+GO
+CREATE USER GDSUser 
+  FOR LOGIN [IIS APPPOOL\GDS.API]
+GO
+EXEC sp_addrolemember 'db_owner', 'GDSUser'
+GO

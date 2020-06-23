@@ -12,5 +12,8 @@ namespace GDS.Core.Models.Enums
 
         [Description("King James Version with Strongs")]
         KJV,
+
+        [Description("New King James Version")]
+        NKJV,
     }
 }

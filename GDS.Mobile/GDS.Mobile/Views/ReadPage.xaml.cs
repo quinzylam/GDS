@@ -14,7 +14,7 @@ namespace GDS.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ReadPage : ContentPage
     {
-        private ReadViewModel viewModel;
+        private ReadViewModel _viewModel;
 
         public ReadPage()
         {
@@ -23,18 +23,18 @@ namespace GDS.Mobile.Views
 
             Appearing += ReadPage_Appearing;
 
-            BindingContext = viewModel;
+            BindingContext = _viewModel;
         }
 
         private void ReadPage_Appearing(object sender, EventArgs e)
         {
-            viewModel.LoadCommand.Execute(null);
+            _viewModel.LoadCommand.Execute(null);
         }
 
         private void InitializeViewModel()
         {
-            viewModel = AppFactory.GetInstance<ReadViewModel>();
-            viewModel.Navigate += ViewModel_Navigate;
+            _viewModel = AppFactory.GetInstance<ReadViewModel>();
+            _viewModel.Navigate += ViewModel_Navigate;
         }
 
         private void ViewModel_Navigate(object sender, Events.NavigateEventArgs e)

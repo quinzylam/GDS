@@ -13,6 +13,6 @@ namespace GDS.API.Controllers
     public class BibleBooksController : ODataController
     {
         [HttpGet, EnableQuery]
-        public IQueryable<BibleBook> Get([FromServices]Context context) => context.BibleBooks;
+        public static IQueryable<BibleBook> Get([FromServices] Context context) => context.BibleBooks;
     }
 }

@@ -10,13 +10,13 @@ namespace GDS.Mobile.ViewModels
 {
     public class ChapterSelectViewModel : BaseViewModel
     {
-        private ObservableCollection<int> chapters;
+        private ObservableCollection<int> _chapters;
 
         public ChapterSelectViewModel()
         {
         }
 
-        public ObservableCollection<int> Chapters { get => chapters; set => SetProperty(ref chapters, value); }
+        public ObservableCollection<int> Chapters { get => _chapters; set => SetProperty(ref _chapters, value); }
         public ICommand LoadCommand => new RelayCommand(Load);
         public ICommand SelectCommand => new RelayCommand(Select);
 

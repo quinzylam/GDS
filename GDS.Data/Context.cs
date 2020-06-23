@@ -14,6 +14,7 @@ namespace GDS.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<BibleBook> BibleBooks { get; set; }
         public DbSet<Verse> Verses { get; set; }
+        public DbSet<Heading> Headings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +27,8 @@ namespace GDS.Data
             modelBuilder.Entity<Verse>().HasIndex(x => x.LocalId).IsUnique();
             modelBuilder.Entity<Verse>().HasIndex(x => x.ChapterNum);
             modelBuilder.Entity<Verse>().HasIndex(x => x.Position);
+            modelBuilder.Entity<Heading>().HasIndex(x => x.Chapter);
+            modelBuilder.Entity<Heading>().HasIndex(x => x.Position);
         }
     }
 }

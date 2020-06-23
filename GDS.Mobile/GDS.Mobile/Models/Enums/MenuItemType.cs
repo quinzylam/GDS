@@ -10,6 +10,9 @@ namespace GDS.Mobile.Models.Enums
         [Description("Read Bible")]
         Read = 0,
 
+        [Description("Library")]
+        Library = 1,
+
         [Description("About")]
         About = 10,
 

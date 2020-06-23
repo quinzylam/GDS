@@ -45,10 +45,10 @@ namespace GDS.Mobile.Core.Services
 
         private static void FormatMessage(SystemLogLevel type, string message, params object[] args)
         {
-            System.Diagnostics.Debug.WriteLine($"\t{type.ToString().ToUpper()}: {DateTime.UtcNow.ToString()} - {message}", args);
+            System.Diagnostics.Debug.WriteLine($"\t{type.ToString().ToUpper()}: {DateTime.UtcNow} - {message}", args);
         }
 
-        public void HandleError(Exception ex)
+        public static void HandleError(Exception ex)
         {
             FormatMessage(SystemLogLevel.E, ex.Message, ex);
         }

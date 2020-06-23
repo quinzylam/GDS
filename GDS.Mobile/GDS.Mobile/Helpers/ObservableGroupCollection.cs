@@ -8,13 +8,13 @@ namespace GDS.Mobile.Helpers
 {
     public class ObservableGroupCollection<S, T> : ObservableCollection<T>
     {
-        private readonly S key;
+        private readonly S _key;
 
         public ObservableGroupCollection(IGrouping<S, T> grouping) : base(grouping)
         {
-            key = grouping.Key;
+            _key = grouping.Key;
         }
 
-        public S Key => key;
+        public S Key => _key;
     }
 }

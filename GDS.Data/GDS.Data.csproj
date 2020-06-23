@@ -5,6 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200526055939_Initial.cs" />
+    <Compile Remove="Migrations\20200526055939_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200526065132_RemoveBibleIdFromBook.cs" />
+    <Compile Remove="Migrations\20200526065132_RemoveBibleIdFromBook.Designer.cs" />
+    <Compile Remove="Migrations\20200526065427_RemoveBookNo.cs" />
+    <Compile Remove="Migrations\20200526065427_RemoveBookNo.Designer.cs" />
+    <Compile Remove="Migrations\20200527085847_FixChapters.cs" />
+    <Compile Remove="Migrations\20200527085847_FixChapters.Designer.cs" />
+    <Compile Remove="Migrations\20200605132628_ChangeChaptersToBibleBook.cs" />
+    <Compile Remove="Migrations\20200605132628_ChangeChaptersToBibleBook.Designer.cs" />
+    <Compile Remove="Migrations\20200609124319_AddHeadings.cs" />
+    <Compile Remove="Migrations\20200609124319_AddHeadings.Designer.cs" />
+    <Compile Remove="Migrations\20200609125250_DatabaseUpdates.cs" />
+    <Compile Remove="Migrations\20200609125250_DatabaseUpdates.Designer.cs" />
+    <Compile Remove="Migrations\20200609130012_UpdateDB.cs" />
+    <Compile Remove="Migrations\20200609130012_UpdateDB.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
@@ -17,5 +36,6 @@
     <ProjectReference Include="..\GDS.Core\GDS.Core.csproj" />
     <ProjectReference Include="..\GDS.Data.Seed\GDS.Data.Seed.csproj" />
     <ProjectReference Include="..\GDS.KJVAE\GDS.KJVAE.csproj" />
+    <ProjectReference Include="..\GDS.NKJV\GDS.NKJV.csproj" />
   </ItemGroup>
 </Project>

@@ -17,7 +17,7 @@ namespace GDS.Mobile.Views
     [DesignTimeVisible(false)]
     public partial class MainPage : MasterDetailPage
     {
-        private readonly Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
+        private readonly Dictionary<int, NavigationPage> _menuPages = new Dictionary<int, NavigationPage>();
         public MenuItemType CurrentMenu { get; internal set; }
         public MenuItemType PrevMenu { get; internal set; }
 
@@ -37,12 +37,16 @@ namespace GDS.Mobile.Views
 
         public async Task NavigateFromMenu(int id)
         {
-            if (!MenuPages.ContainsKey(id))
+            if (!_menuPages.ContainsKey(id))
             {
                 switch (id)
                 {
                     case (int)MenuItemType.Read:
                         AddToMenu(id, new ReadPage());
+                        break;
+
+                    case (int)MenuItemType.Library:
+                        AddToMenu(id, new LibraryPage());
                         break;
 
                     case (int)MenuItemType.About:
@@ -51,7 +55,7 @@ namespace GDS.Mobile.Views
                 }
             }
 
-            var newPage = MenuPages[id];
+            var newPage = _menuPages[id];
 
             await NavigateTo(newPage);
         }
@@ -77,7 +81,7 @@ namespace GDS.Mobile.Views
 
         public void AddToMenu(int id, ContentPage page)
         {
-            MenuPages.Add(id, new NavigationPage(page));
+            _menuPages.Add(id, new NavigationPage(page));
         }
 
         public async Task Back()

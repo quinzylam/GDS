@@ -28,12 +28,14 @@ namespace GDS.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<IISServerOptions>(options => options.AutomaticAuthentication = false);
+            services.Configure<IISOptions>(options => options.ForwardClientCertificate = false);
+
             services.AddDbContext<Context>(opt =>
                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddOData();
-            //services.AddControllers(mvcOptions => mvcOptions.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,7 +80,7 @@ namespace GDS.API
 
             builder.EntitySet<Book>("Books");
             builder.EntitySet<Bible>("Bibles");
-            builder.EntitySet<BibleBook>("Chapters");
+            builder.EntitySet<BibleBook>("BibleBooks");
             builder.EntitySet<Verse>("Verses");
             //builder.EntityType<Bible>().ContainsMany(x => x.Chapters);
             //builder.EntityType<Chapter>().ContainsMany(x => x.Verses);

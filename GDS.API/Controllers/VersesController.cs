@@ -13,6 +13,6 @@ namespace GDS.API.Controllers
     public class VersesController : ODataController
     {
         [HttpGet, EnableQuery(PageSize = 30)]
-        public IQueryable<Verse> Get([FromServices]Context context) => context.Verses;
+        public static IQueryable<Verse> Get([FromServices] Context context) => context.Verses;
     }
 }

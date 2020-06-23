@@ -13,6 +13,6 @@ namespace GDS.Data.Mobile.Models
         public override Guid Id { get; set; }
 
         [Ignore]
-        public override BibleBook Chapter { get => base.Chapter; set => base.Chapter = value; }
+        public override BibleBook BibleBook { get => base.BibleBook; set => base.BibleBook = value; }
     }
 }

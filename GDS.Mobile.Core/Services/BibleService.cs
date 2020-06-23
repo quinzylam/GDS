@@ -2,6 +2,7 @@
 using GDS.Core.Models;
 using GDS.Core.Models.Enums;
 using GDS.Core.Services;
+using Microsoft.OData.Edm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,27 +15,24 @@ namespace GDS.Mobile.Core.Services
         private readonly IRestService _restService;
         private readonly IDataStore<Bible> _dataStore;
 
-        public BibleService(IRestService restService)
+        public BibleService(IRestService restService, IDataStore<Bible> dataStore)
         {
             _restService = restService;
+            _dataStore = dataStore;
         }
 
-        public async Task DownloadAsync(BibleVersion code, bool forceRefresh = false)
-        {
-            if (_dataStore.Any() && !forceRefresh)
-                return;
-            var bible = await _restService.Client.For<Bible>().Filter(f => f.Code == code).Expand("*").FindEntryAsync();
-            await _dataStore.UpdateAsync(bible, true);
-        }
-
-        public async Task<IEnumerable<Bible>> GetAsync()
+        public async Task<IEnumerable<Bible>> GetAsync(bool forceUpdate)
         {
             var result = await _dataStore.GetAsync();
-            if (result.Any())
+            if (result.Any() && !forceUpdate)
                 return result;
             else if (_restService.IsOnline)
-                return await _restService.Client.For<Bible>().FindEntriesAsync();
-            return null;
+            {
+                result = await _restService.Client.For<Bible>().FindEntriesAsync();
+                foreach (var item in result)
+                    await _dataStore.UpdateAsync(item, forceUpdate);
+            }
+            return result;
         }
 
         public async Task<Bible> GetAsync(BibleVersion code)

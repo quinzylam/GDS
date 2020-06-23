@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Name="ParentView"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="GDS.Mobile.Views.LibraryPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <Label Text="{Binding ErrorMsg}" IsVisible="{Binding HasError}" TextColor="Red" />
+                <Label Text="{Binding Info}" IsVisible="{Binding HasInfo}" />
+                <Label Text="{Binding Status}" IsVisible="{Binding HasStatus}" />
+            </StackLayout>
+            <ListView ItemsSource="{Binding Bibles}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Margin="5">
+                                <Label Text="{Binding Code}" HorizontalOptions="Fill" LineBreakMode="NoWrap" />
+                                <Label Text="{Binding Title}" HorizontalOptions="Fill" />
+                                <Button Text="Download" Command="{Binding BindingContext.DownloadCommand, Source={x:Reference ParentView}}" CommandParameter="{Binding Code}" IsEnabled="true" HorizontalOptions="End" />
+                                <ProgressBar Progress="{Binding Progress, Mode=TwoWay}" HorizontalOptions="FillAndExpand" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

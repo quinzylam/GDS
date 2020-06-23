@@ -7,6 +7,9 @@ namespace GDS.Core.Models.Enums
 {
     public enum BookList
     {
+        [Description("Unknown")]
+        Unknown = 0,
+
         [Description("Genesis")]
         Genesis = 10,
 

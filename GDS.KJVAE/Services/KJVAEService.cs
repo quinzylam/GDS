@@ -1,4 +1,5 @@
-﻿using GDS.Core.Helpers;
+﻿using GDS.Bibles.Core.Services;
+using GDS.Core.Helpers;
 using GDS.Core.Models;
 using GDS.Core.Models.Enums;
 using GDS.Data;
@@ -9,16 +10,15 @@ using System.Text;
 
 namespace GDS.KJVAE.Services
 {
-    public class KJVAEService
+    public class KJVAEService : IBibleService
     {
         private readonly Repository _repo;
-        private IEnumerable<BibleBook> bibleBooks;
-        private IEnumerable<Verse> verses;
-        private readonly Bible _bible;
+        private IEnumerable<BibleBook> _bibleBooks;
+        private IEnumerable<Verse> _verses;
 
         public KJVAEService(Bible bible, IEnumerable<Book> books)
         {
-            _bible = bible;
+            Bible = bible;
             Books = books;
             _repo = new Repository();
         }
@@ -27,16 +27,16 @@ namespace GDS.KJVAE.Services
         {
             get
             {
-                if (bibleBooks == null)
+                if (_bibleBooks == null)
                     GetBibleBooks();
-                return bibleBooks;
+                return _bibleBooks;
             }
-            set => bibleBooks = value;
+            set => _bibleBooks = value;
         }
 
         private void GetBibleBooks()
         {
-            if (Books == null || _bible == null)
+            if (Books == null || Bible == null)
                 return;
 
             if (_repo.Connection.Table<Models.Chapter>().Any())
@@ -47,7 +47,7 @@ namespace GDS.KJVAE.Services
                     Book = Books.FirstOrDefault(b => b.Title == x.Title || (b.NTitle ?? string.Empty).Contains(x.Title)),
                     BookId = Books.FirstOrDefault(b => b.Title == x.Title || (b.NTitle ?? string.Empty).Contains(x.Title))?.Id ?? default,
                     BookCode = Books.FirstOrDefault(b => b.Title == x.Title || (b.NTitle ?? string.Empty).Contains(x.Title)).Code,
-                    BibleId = _bible.Id,
+                    BibleId = Bible.Id,
                     Version = BibleVersion.KJVAE,
                     Num = x.NumOfChapters
                 }).ToList();
@@ -57,27 +57,31 @@ namespace GDS.KJVAE.Services
         {
             get
             {
-                if (verses == null)
+                if (_verses == null)
                     GetVerses();
-                return verses;
+                return _verses;
             }
-            set => verses = value;
+            set => _verses = value;
         }
 
         public IEnumerable<Book> Books { get; }
+
+        public Bible Bible { get; }
+        public IEnumerable<Heading> Headings { get; set; }
 
         private void GetVerses()
         {
             if (BibleBooks == null)
                 return;
-            verses = _repo.Connection.Table<Models.Verse>().Select(x => new Verse
+            _verses = _repo.Connection.Table<Models.Verse>().Select(x => new Verse
             {
                 Id = Guid.NewGuid(),
                 LocalId = x.Id,
-                ChapterId = BibleBooks.FirstOrDefault(c => c.LocalId == x.ChapterId).Id,
+                BibleBookId = BibleBooks.First(c => c.LocalId == x.ChapterId).Id,
                 ChapterNum = x.ChapterNum,
                 Position = x.Position,
                 Text = x.Text,
+                HeadingId = Headings.FirstOrDefault(f => f.BookId == (BibleBooks.FirstOrDefault(c => c.LocalId == x.Id)?.Id ?? default) && f.Chapter == x.ChapterNum && f.Position == x.Position)?.Id,
             });
         }
     }

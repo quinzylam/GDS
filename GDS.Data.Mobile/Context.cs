@@ -12,7 +12,7 @@ namespace GDS.Data.Mobile
 {
     public class Context : IMobileContext
     {
-        private const string DB_NAME = "GDS";
+        private const string _db_name = "GDS";
 
         public Context()
         {
@@ -34,16 +34,20 @@ namespace GDS.Data.Mobile
 
               cfg.CreateMap<Verse, VerseDbo>()
               .ReverseMap();
+
+              cfg.CreateMap<Heading, HeadingDbo>()
+              .ReverseMap();
           });
 
         private async void Initialize()
         {
-            Conn = new SQLiteAsyncConnection(Path.Combine(Constants.DBPath, string.Concat(DB_NAME, Constants.DB_EXT)));
+            Conn = new SQLiteAsyncConnection(Path.Combine(Constants.DBPath, string.Concat(_db_name, Constants.DB_EXT)));
 
             await Conn.CreateTableAsync<BibleDbo>();
             await Conn.CreateTableAsync<BookDbo>();
             await Conn.CreateTableAsync<BibleBookDbo>();
             await Conn.CreateTableAsync<VerseDbo>();
+            await Conn.CreateTableAsync<HeadingDbo>();
         }
     }
 }

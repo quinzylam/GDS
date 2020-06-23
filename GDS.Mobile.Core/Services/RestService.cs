@@ -10,7 +10,7 @@ namespace GDS.Mobile.Core.Services
 {
     public class RestService : IRestService
     {
-        private bool initialRequest;
+        private bool _initialRequest;
         private readonly ILogger _logger;
 
         public RestService(ILogger logger)
@@ -56,9 +56,9 @@ namespace GDS.Mobile.Core.Services
             }
             else
             {
-                if (initialRequest)
-                    IsOnline = initialRequest;
-                initialRequest = false;
+                if (_initialRequest)
+                    IsOnline = _initialRequest;
+                _initialRequest = false;
             }
         }
 
@@ -74,7 +74,7 @@ namespace GDS.Mobile.Core.Services
             Request = requestMessage;
             var baseUrl = string.Concat(Constants.API_URL, "$metadata");
             if (requestMessage.RequestUri.OriginalString == baseUrl)
-                initialRequest = true;
+                _initialRequest = true;
         }
     }
 }

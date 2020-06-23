@@ -15,19 +15,19 @@ namespace GDS.Data.Mobile.DataStores.Tests
     public class BibleDataStoreTests
     {
         private IMobileContext _ctx;
-        private Bible bible;
+        private Bible _bible;
 
         [SetUp]
         public void Setup()
         {
             _ctx = new Context();
-            bible = new Bible { Id = Guid.Parse("088ff243-c402-485f-8a22-3b7e3919c4b1"), Code = Core.Models.Enums.BibleVersion.KJV, NumOfBooks = 66 };
+            _bible = new Bible { Id = Guid.Parse("088ff243-c402-485f-8a22-3b7e3919c4b1"), Code = Core.Models.Enums.BibleVersion.KJV, NumOfBooks = 66 };
         }
 
         [Test()]
         public async Task InsertAsyncTest()
         {
-            var inserted = await _ctx.Conn.InsertAsync(bible);
+            var inserted = await _ctx.Conn.InsertAsync(_bible);
             Assert.IsTrue(inserted > 0);
         }
 
@@ -46,8 +46,8 @@ namespace GDS.Data.Mobile.DataStores.Tests
         [Test()]
         public async Task GetAsyncTest()
         {
-            bible = await _ctx.Conn.Table<BibleDbo>().FirstOrDefaultAsync();
-            Assert.IsNotNull(bible);
+            _bible = await _ctx.Conn.Table<BibleDbo>().FirstOrDefaultAsync();
+            Assert.IsNotNull(_bible);
         }
 
         [Test()]

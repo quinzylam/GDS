@@ -1,9 +1,13 @@
-﻿using CommonServiceLocator;
+﻿using AutoMapper;
+using CommonServiceLocator;
+using GDS.Core.Data.Mobile;
 using GDS.Core.Logging;
 using GDS.Core.Models;
 using GDS.Core.Services;
 using GDS.Data.Mobile;
+using GDS.Data.Mobile.DataStores;
 using GDS.Mobile.Core.Services;
+using GDS.Mobile.Mappings;
 using Unity;
 using Unity.Lifetime;
 using Unity.ServiceLocation;
@@ -19,8 +23,13 @@ namespace GDS.Mobile.Factories
         {
             DependencyResolver.ResolveUsing(type => _iocContainer.IsRegistered(type) ? _iocContainer.Resolve(type) : null);
 
+            //Mappers
+            _iocContainer.RegisterInstance(new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper());
+
             //Data
             _iocContainer.RegisterSingleton<IMobileContext, Context>();
+            _iocContainer.RegisterType<IDataStore<Bible>, BibleDataStore>();
+            _iocContainer.RegisterType<IDataStore<BibleBook>, BibleBookDataStore>();
 
             //Logger
             _iocContainer.RegisterType<ILogger, Logger>(new HierarchicalLifetimeManager());
@@ -33,6 +42,7 @@ namespace GDS.Mobile.Factories
 
             //Services
             _iocContainer.RegisterType<IVerseService<Verse>, VerseService>(new HierarchicalLifetimeManager());
+            _iocContainer.RegisterType<IBibleService<Bible>, BibleService>(new HierarchicalLifetimeManager());
             _iocContainer.RegisterType<IBibleBookService<BibleBook>, BibleBookService>(new HierarchicalLifetimeManager());
             _iocContainer.RegisterType<IBookService<Book>, BookService>(new HierarchicalLifetimeManager());
         }

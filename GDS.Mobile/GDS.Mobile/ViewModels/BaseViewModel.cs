@@ -1,6 +1,7 @@
 ﻿using GDS.Core.Logging;
 using GDS.Core.Services;
 using GDS.Mobile.Commands;
+using GDS.Mobile.Core;
 using GDS.Mobile.Events;
 using GDS.Mobile.Factories;
 using GDS.Mobile.Models;
@@ -13,11 +14,12 @@ namespace GDS.Mobile.ViewModels
 {
     public class BaseViewModel : BaseModel
     {
-        private string errorMsg;
-        private string info;
-        private bool isBusy = false;
-        private string status;
-        private string title = string.Empty;
+        private string _errorMsg;
+        private string _info;
+        private bool _isBusy = false;
+        private string _status;
+        private string _title = string.Empty;
+        private bool _isDownloading;
 
         public BaseViewModel()
         {
@@ -29,44 +31,46 @@ namespace GDS.Mobile.ViewModels
 
         public string ErrorMsg
         {
-            get => errorMsg; set
+            get => _errorMsg; set
             {
-                SetProperty(ref errorMsg, value);
+                SetProperty(ref _errorMsg, value);
             }
         }
 
         public bool HasError { get => !string.IsNullOrEmpty(ErrorMsg); }
         public bool HasInfo { get => !string.IsNullOrEmpty(Info); }
         public bool HasStatus { get => !string.IsNullOrEmpty(Status); }
+        public bool IsDownloading { get => _isDownloading; set => SetProperty(ref _isDownloading, value); }
+        public float Progress { get; set; }
 
         public string Info
         {
-            get => info; set
+            get => _info; set
             {
-                SetProperty(ref info, value);
+                SetProperty(ref _info, value);
             }
         }
 
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get { return _isBusy; }
+            set { SetProperty(ref _isBusy, value); }
         }
 
         public MainPage RootPage { get => Application.Current.MainPage as MainPage; }
 
         public string Status
         {
-            get => status; set
+            get => _status; set
             {
-                SetProperty(ref status, value);
+                SetProperty(ref _status, value);
             }
         }
 
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
         }
 
         public TaskWatcher Watcher { get; }

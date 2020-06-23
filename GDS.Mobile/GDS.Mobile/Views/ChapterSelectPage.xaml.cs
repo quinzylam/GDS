@@ -15,7 +15,7 @@ namespace GDS.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChapterSelectPage : ContentPage
     {
-        private ChapterSelectViewModel viewModel;
+        private ChapterSelectViewModel _viewModel;
 
         public ChapterSelectPage(int chapterNo)
         {
@@ -25,14 +25,14 @@ namespace GDS.Mobile.Views
 
         private void InitializeViewModel(int chapterNo)
         {
-            viewModel = AppFactory.GetInstance<ChapterSelectViewModel>();
-            viewModel.LoadCommand.Execute(chapterNo);
-            BindingContext = viewModel;
+            _viewModel = AppFactory.GetInstance<ChapterSelectViewModel>();
+            _viewModel.LoadCommand.Execute(chapterNo);
+            BindingContext = _viewModel;
         }
 
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            viewModel.SelectCommand.Execute(e.SelectedItem);
+            _viewModel.SelectCommand.Execute(e.SelectedItem);
             await this.Navigation.PopToRootAsync();
         }
     }

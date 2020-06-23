@@ -15,11 +15,11 @@ namespace GDS.Mobile.ViewModels
 {
     public class BookSelectViewModel : BaseViewModel
     {
-        private ObservableCollection<Book> books;
-        private IEnumerable<ObservableGroupCollection<string, Book>> sections;
+        private ObservableCollection<Book> _books;
+        private IEnumerable<ObservableGroupCollection<string, Book>> _sections;
 
-        public ObservableCollection<Book> Books { get => books; set => SetProperty(ref books, value); }
-        public IEnumerable<ObservableGroupCollection<string, Book>> Sections { get => sections; set => SetProperty(ref sections, value); }
+        public ObservableCollection<Book> Books { get => _books; set => SetProperty(ref _books, value); }
+        public IEnumerable<ObservableGroupCollection<string, Book>> Sections { get => _sections; set => SetProperty(ref _sections, value); }
 
         public BookSelectViewModel()
         {

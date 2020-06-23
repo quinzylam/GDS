@@ -19,7 +19,7 @@ namespace GDS.Mobile.Core.Services
 
         public async Task<IEnumerable<Verse>> GetAsync(BibleVersion bible, BookList book, int chapter)
         {
-            return await _restService.Client.For<Verse>().Expand(c => c.Chapter).Filter(x => x.Chapter.Version == bible && x.Chapter.BookCode == book && x.ChapterNum == chapter).OrderBy(s => s.ChapterNum).ThenBy(v => v.Position).FindEntriesAsync();
+            return await _restService.Client.For<Verse>().Expand(c => c.BibleBook).Filter(x => x.BibleBook.Version == bible && x.BibleBook.BookCode == book && x.ChapterNum == chapter).OrderBy(s => s.ChapterNum).ThenBy(v => v.Position).FindEntriesAsync();
         }
     }
 }

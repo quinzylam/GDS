@@ -79,6 +79,7 @@ namespace GDS.Mobile.Commands
             catch (Exception ex)
             {
                 FailedExecution?.Invoke(this, new ExecuteTaskEventArgs { IsExecuting = _watcher.IsNotCompleted, Exception = ex });
+                throw ex;
             }
         }
 

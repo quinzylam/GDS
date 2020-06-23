@@ -11,8 +11,6 @@ namespace GDS.Data.Mobile.DataStores.Tests
     [TestFixture()]
     public class ChapterDataStoreTests
     {
-        private IDataStore<BibleBook> datastore;
-
         [SetUp]
         public void Setup()
         {

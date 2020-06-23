@@ -9,8 +9,8 @@ namespace GDS.Mobile.Commands
     public class TaskWatcher : BaseModel
     {
         public Task Task { get; private set; }
-        private bool isStarted;
-        public bool Started { get => isStarted; set => SetProperty(ref isStarted, value); }
+        private bool _isStarted;
+        public bool Started { get => _isStarted; set => SetProperty(ref _isStarted, value); }
         private Action _onComplete;
 
         public void ExecuteTask(Task task, Action onComplete = null)

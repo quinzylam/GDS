@@ -9,104 +9,104 @@ namespace GDS.Data
 {
     public static class Seed
     {
-        private static ICollection<Book> books;
-        private static ICollection<Bible> bibles;
+        private static ICollection<Book> _books;
+        private static ICollection<Bible> _bibles;
 
         public static ICollection<Bible> Bibles
         {
             get
             {
-                if (bibles == null)
+                if (_bibles == null)
                     SeedBibles();
-                return bibles;
+                return _bibles;
             }
 
-            set => bibles = value;
+            set => _bibles = value;
         }
 
         public static ICollection<Book> Books
         {
             get
             {
-                if (books == null)
+                if (_books == null)
                     SeedBooks();
-                return books;
+                return _books;
             }
-            set => books = value;
+            set => _books = value;
         }
 
         public static void SeedBooks()
         {
-            if (books == null)
-                books = new List<Book>();
+            if (_books == null)
+                _books = new List<Book>();
 
             var section = Section.OldTestiment;
-            AddBook(BookList.Genesis, "Gen", section);
-            AddBook(BookList.Exodus, "Exod", section);
-            AddBook(BookList.Leviticus, "Lev", section);
-            AddBook(BookList.Numbers, "Num", section);
-            AddBook(BookList.Deuteronomy, "Deut", section);
-            AddBook(BookList.Joshua, "Josh", section);
-            AddBook(BookList.Judges, "Judg", section);
-            AddBook(BookList.Ruth, "Ruth", section);
-            AddBook(BookList.ISamuel, "1 Sam", section);
-            AddBook(BookList.IISamuel, "2 Sam", section);
-            AddBook(BookList.IKings, "1 Kings", section);
-            AddBook(BookList.IIKings, "2 Kings", section);
-            AddBook(BookList.IChronicles, "1 Chron", section);
-            AddBook(BookList.IIChronicles, "2 Chron", section);
-            AddBook(BookList.Ezra, "Ezra", section);
-            AddBook(BookList.Nehemiah, "Neh", section);
-            AddBook(BookList.Esther, "Est", section);
+            AddBook(BookList.Genesis, "Gen", section, "Ge");
+            AddBook(BookList.Exodus, "Exod", section, "Ex");
+            AddBook(BookList.Leviticus, "Lev", section, "Le");
+            AddBook(BookList.Numbers, "Num", section, "Nu");
+            AddBook(BookList.Deuteronomy, "Deut", section, "De");
+            AddBook(BookList.Joshua, "Josh", section, "Jos");
+            AddBook(BookList.Judges, "Judg", section, "Jud");
+            AddBook(BookList.Ruth, "Ruth", section, "Ru");
+            AddBook(BookList.ISamuel, "1 Sam", section, "1Sa");
+            AddBook(BookList.IISamuel, "2 Sam", section, "2Sa");
+            AddBook(BookList.IKings, "1 Kings", section, "1Ki");
+            AddBook(BookList.IIKings, "2 Kings", section, "2Ki");
+            AddBook(BookList.IChronicles, "1 Chron", section, "1Ch");
+            AddBook(BookList.IIChronicles, "2 Chron", section, "2Ch");
+            AddBook(BookList.Ezra, "Ezra", section, "Ezr");
+            AddBook(BookList.Nehemiah, "Neh", section, "Ne");
+            AddBook(BookList.Esther, "Est", section, "Es");
             AddBook(BookList.Job, "Job", section);
             AddBook(BookList.Psalms, "Ps", section);
-            AddBook(BookList.Proverbs, "Prov", section);
-            AddBook(BookList.Ecclesiastes, "Eccles", section);
-            AddBook(BookList.Songs, "Song", section);
+            AddBook(BookList.Proverbs, "Prov", section, "Pr");
+            AddBook(BookList.Ecclesiastes, "Eccles", section, "Ec");
+            AddBook(BookList.Songs, "Song", section, "So");
             AddBook(BookList.Isaiah, "Isa", section);
             AddBook(BookList.Jeremiah, "Jer", section);
-            AddBook(BookList.Lamentations, "Lam", section);
-            AddBook(BookList.Ezekiel, "Ezek", section);
-            AddBook(BookList.Daniel, "Dan", section);
-            AddBook(BookList.Hosea, "Hos", section);
-            AddBook(BookList.Joel, "Joel", section);
-            AddBook(BookList.Amos, "Amos", section);
-            AddBook(BookList.Obadiah, "Obad", section);
-            AddBook(BookList.Jonah, "Jonah", section);
+            AddBook(BookList.Lamentations, "Lam", section, "La");
+            AddBook(BookList.Ezekiel, "Ezek", section, "Eze");
+            AddBook(BookList.Daniel, "Dan", section, "Da");
+            AddBook(BookList.Hosea, "Hos", section, "Ho");
+            AddBook(BookList.Joel, "Joel", section, "Joe");
+            AddBook(BookList.Amos, "Amos", section, "Am");
+            AddBook(BookList.Obadiah, "Obad", section, "Ob");
+            AddBook(BookList.Jonah, "Jonah", section, "Jon");
             AddBook(BookList.Micah, "Mic", section);
-            AddBook(BookList.Nahum, "Nah", section);
+            AddBook(BookList.Nahum, "Nah", section, "Na");
             AddBook(BookList.Habakkuk, "Hab", section);
-            AddBook(BookList.Zephaniah, "Zeph", section);
+            AddBook(BookList.Zephaniah, "Zeph", section, "Zep");
             AddBook(BookList.Haggai, "Hag", section);
-            AddBook(BookList.Zechariah, "Zech", section);
+            AddBook(BookList.Zechariah, "Zech", section, "Zec");
             AddBook(BookList.Malachi, "Mal", section);
 
             section = Section.NewTestiment;
-            AddBook(BookList.Matthew, "Matt", section);
-            AddBook(BookList.Mark, "Mark", section);
-            AddBook(BookList.Luke, "Luke", section);
-            AddBook(BookList.John, "John", section);
-            AddBook(BookList.Acts, "Acts", section);
-            AddBook(BookList.Romans, "Rom", section);
-            AddBook(BookList.ICorinthians, "1 Cor", section);
-            AddBook(BookList.IICorinthians, "2 Cor", section);
-            AddBook(BookList.Galatians, "Gal", section);
+            AddBook(BookList.Matthew, "Matt", section, "Mt");
+            AddBook(BookList.Mark, "Mark", section, "Mr");
+            AddBook(BookList.Luke, "Luke", section, "Lu");
+            AddBook(BookList.John, "John", section, "Joh");
+            AddBook(BookList.Acts, "Acts", section, "Ac");
+            AddBook(BookList.Romans, "Rom", section, "Ro");
+            AddBook(BookList.ICorinthians, "1 Cor", section, "1Co");
+            AddBook(BookList.IICorinthians, "2 Cor", section, "2Co");
+            AddBook(BookList.Galatians, "Gal", section, "Ga");
             AddBook(BookList.Ephesians, "Eph", section);
-            AddBook(BookList.Philippians, "Phil", section);
+            AddBook(BookList.Philippians, "Phil", section, "Php");
             AddBook(BookList.Colossians, "Col", section);
-            AddBook(BookList.IThessalonians, "1 Thess", section);
-            AddBook(BookList.IIThessalonians, "2 Thess", section);
-            AddBook(BookList.ITimothy, "1 Tim", section);
-            AddBook(BookList.IITimothy, "2 Tim", section);
-            AddBook(BookList.Titus, "Titus", section);
-            AddBook(BookList.Philemon, "Philem", section);
+            AddBook(BookList.IThessalonians, "1 Thess", section, "1Th");
+            AddBook(BookList.IIThessalonians, "2 Thess", section, "2Th");
+            AddBook(BookList.ITimothy, "1 Tim", section, "1Ti");
+            AddBook(BookList.IITimothy, "2 Tim", section, "2Ti");
+            AddBook(BookList.Titus, "Titus", section, "Tit");
+            AddBook(BookList.Philemon, "Philem", section, "Phm");
             AddBook(BookList.Hebrews, "Heb", section);
-            AddBook(BookList.James, "James", section);
-            AddBook(BookList.IPeter, "1 Pet", section);
-            AddBook(BookList.IIPeter, "2 Pet", section);
-            AddBook(BookList.IJohn, "1 John", section);
-            AddBook(BookList.IIJohn, "2 John", section);
-            AddBook(BookList.IIIJohn, "3 John", section);
+            AddBook(BookList.James, "James", section, "Jam");
+            AddBook(BookList.IPeter, "1 Pet", section, "1Pe");
+            AddBook(BookList.IIPeter, "2 Pet", section, "2Pe");
+            AddBook(BookList.IJohn, "1 John", section, "1Jo,1Jn");
+            AddBook(BookList.IIJohn, "2 John", section, "2Jo,2Jn");
+            AddBook(BookList.IIIJohn, "3 John", section, "3Jo,3Jn");
             AddBook(BookList.Jude, "Jude", section);
             AddBook(BookList.Revelation, "Rev", section);
 
@@ -214,10 +214,10 @@ namespace GDS.Data
 
         private static void AddBook(BookList book, string shortTitle, Section section, string ntitle = null)
         {
-            if (!books.Any(x => x.Code == book))
-                books.Add(new Book { Id = Guid.NewGuid(), Code = book, LocalId = (int)book, Title = EnumHelper.GetDescription(book), ShortTitle = shortTitle, Section = section, NTitle = ntitle });
+            if (!_books.Any(x => x.Code == book))
+                _books.Add(new Book { Id = Guid.NewGuid(), Code = book, LocalId = (int)book, Title = EnumHelper.GetDescription(book), ShortTitle = shortTitle, Section = section, NTitle = ntitle });
 
-            var bk = books.FirstOrDefault(x => x.Code == book);
+            var bk = _books.FirstOrDefault(x => x.Code == book);
 
             if (bk.LocalId != (int)book)
                 bk.LocalId = (int)book;
@@ -237,17 +237,18 @@ namespace GDS.Data
 
         public static void SeedBibles()
         {
-            if (bibles == null)
-                bibles = new List<Bible>();
+            if (_bibles == null)
+                _bibles = new List<Bible>();
             AddBible(BibleVersion.KJVAE, 84);
+            AddBible(BibleVersion.NKJV, 66);
         }
 
         private static void AddBible(BibleVersion version, int numOfBooks)
         {
-            if (!bibles.Any(x => x.Code == version))
-                bibles.Add(new Bible { Id = Guid.NewGuid(), LocalId = (int)version, Code = version, Title = version.GetDescription() });
+            if (!_bibles.Any(x => x.Code == version))
+                _bibles.Add(new Bible { Id = Guid.NewGuid(), LocalId = (int)version, Code = version, Title = version.GetDescription() });
 
-            var result = bibles.FirstOrDefault(x => x.Code == version);
+            var result = _bibles.FirstOrDefault(x => x.Code == version);
 
             if (result.LocalId != (int)version)
                 result.LocalId = (int)version;

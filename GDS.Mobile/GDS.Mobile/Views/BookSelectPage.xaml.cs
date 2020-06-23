@@ -15,7 +15,7 @@ namespace GDS.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BookSelectPage : ContentPage
     {
-        private BookSelectViewModel viewModel;
+        private BookSelectViewModel _viewModel;
 
         public BookSelectPage()
         {
@@ -23,22 +23,22 @@ namespace GDS.Mobile.Views
             InitializeViewModel();
 
             Appearing += SelectPage_Appearing;
-            BindingContext = viewModel;
+            BindingContext = _viewModel;
         }
 
         private void SelectPage_Appearing(object sender, EventArgs e)
         {
-            viewModel.LoadCommand.Execute(null);
+            _viewModel.LoadCommand.Execute(null);
         }
 
         private void InitializeViewModel()
         {
-            viewModel = AppFactory.GetInstance<BookSelectViewModel>();
+            _viewModel = AppFactory.GetInstance<BookSelectViewModel>();
         }
 
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            viewModel.SelectCommand.Execute(e.SelectedItem);
+            _viewModel.SelectCommand.Execute(e.SelectedItem);
             var book = (Book)e.SelectedItem;
             await this.Navigation.PushAsync(new ChapterSelectPage(book.BibleBooks.FirstOrDefault().Num));
         }
